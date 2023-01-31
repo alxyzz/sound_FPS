@@ -48,6 +48,9 @@ MonoBehaviour:
   cameraPosition: {fileID: 0}
   cameraController: {fileID: 4453089183880565426}
   fpsCamera: {fileID: 4931863005400770047}
+  obj_Pistol: {fileID: 0}
+  obj_SMG: {fileID: 0}
+  obj_Sniper: {fileID: 0}
 --- !u!1 &1525276042897608918
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,7 +324,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4633655826258773988, guid: cadbf800af7c57745b95e4653f628032, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.0405716
+      value: -0.45
       objectReference: {fileID: 0}
     - target: {fileID: 4633655826258773988, guid: cadbf800af7c57745b95e4653f628032, type: 3}
       propertyPath: m_LocalRotation.w

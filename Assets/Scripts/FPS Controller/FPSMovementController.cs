@@ -91,8 +91,13 @@ public class FPSMovementController : NetworkBehaviour
                     cameraHolderInstance.GetComponent<CameraHolder>().cameraController.orientation = orientaion;
                     cameraHolderInstance.GetComponent<CameraHolder>().cameraController.headCube = headCube;
                     cameraHolderInstance.GetComponent<CameraHolder>().cameraController.capsule = capsule;
-
+                    CameraHolder camhold = cameraHolderInstance.GetComponent<CameraHolder>();
                     headCube.gameObject.SetActive(false);
+                    obj_SMG = camhold.obj_SMG;
+                    obj_Pistol = camhold.obj_Pistol;
+                    obj_Sniper = camhold.obj_Sniper;
+
+                  
 
                     playerCamera = cameraHolderInstance.GetComponent<CameraHolder>().fpsCamera.transform;
                     cameraSpawned = true;

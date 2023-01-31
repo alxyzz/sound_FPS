@@ -8,6 +8,8 @@ public class CameraHolder : MonoBehaviour
     public Camera fpsCamera;
 
 
+    public WeaponData obj_Pistol, obj_SMG, obj_Sniper;
+
 
     void Start()
     {
