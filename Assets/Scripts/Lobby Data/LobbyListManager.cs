@@ -59,6 +59,9 @@ public class LobbyListManager : MonoBehaviour
         }
     }
 
+
+   
+
     public void DestroyLobbies() {
         foreach(GameObject lobbyItem in listOfLobbies) {
             Destroy(lobbyItem);

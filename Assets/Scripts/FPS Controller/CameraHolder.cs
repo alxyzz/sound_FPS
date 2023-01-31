@@ -5,6 +5,18 @@ public class CameraHolder : MonoBehaviour
 {   
     public Transform cameraPosition; //Gotta find this under LocalPlayerObject > Camera Position
     public FPSCameraController cameraController;
+    public Camera fpsCamera;
+
+
+    public WeaponData obj_Pistol, obj_SMG, obj_Sniper;
+
+
+    void Start()
+    {
+        //transform.parent.parent
+       // cameraController.fpsUI.transform.position = transform.position;
+       // cameraController.fpsUI.transform.SetParent(transform);
+    }
 
     void Update()
     {
@@ -22,6 +34,8 @@ public class CameraHolder : MonoBehaviour
             // }
         }
 
+
         transform.position = cameraPosition.position;
+        
     }
 }

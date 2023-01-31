@@ -2,10 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.SceneManagement;
 
 public class FPSMovementController : NetworkBehaviour
 {
+
+    [Header("Weaponry")] 
+    [HideInInspector]public WeaponData currWep;
+    
+    public WeaponData obj_Pistol, obj_SMG, obj_Sniper;
+
+    public Animator anim_Pistol, anim_SMG, anim_Sniper, currWepAnim;
+    //public Transform _fpsRoot;
+
     [Header("Movement")]
     public float moveSpeed;
     public float groundDrag;
@@ -24,12 +34,32 @@ public class FPSMovementController : NetworkBehaviour
     public float playerHeight;      //Be sure to update this if you change models or something
     public LayerMask whatIsGround;
     public bool grounded;
-    
+
+    public bool isDead;
+    public bool isStunned;
+
+
+    public bool canMove
+    {
+        get
+        {
+            if (!isDead && !isStunned)
+            {
+                return true;
+            }
+
+            return false;
+        }
+    }
+
+
     [Header("References")]
     public Transform orientaion;
     public Transform headCube;
     public Transform capsule;
     public Transform camPosition;
+    public FPS_UI_Component HUDComponent;
+
     public GameObject cameraHolderPrefab;
 
     [SerializeField] Rigidbody rb;
@@ -57,12 +87,37 @@ public class FPSMovementController : NetworkBehaviour
         ResetJump();
     }
 
+
+    private void MoveFPSModelTocameraObject()
+    {
+        //_fpsRoot.SetParent(playerCamera);
+        //_fpsRoot.transform.position = playerCamera.position;
+    }
+
+
+    public void Die()
+    {
+        
+    }
+
+
+    public void Respawn()
+    {
+
+    }
+
+
+
+
+    private Transform playerCamera;
+    
     private void Update() {
         if (SceneManager.GetActiveScene().name == "Game") {
             if (playerModel.activeSelf == false) {
                 SetRandomPosition();
                 PlayerCosmeticSetup();
                 playerModel.SetActive(true);
+               
 
                 if (hasAuthority && cameraSpawned == false) {
                     rb.useGravity = true;
@@ -71,18 +126,39 @@ public class FPSMovementController : NetworkBehaviour
                     cameraHolderInstance.GetComponent<CameraHolder>().cameraController.orientation = orientaion;
                     cameraHolderInstance.GetComponent<CameraHolder>().cameraController.headCube = headCube;
                     cameraHolderInstance.GetComponent<CameraHolder>().cameraController.capsule = capsule;
+                    CameraHolder camhold = cameraHolderInstance.GetComponent<CameraHolder>();
                     headCube.gameObject.SetActive(false);
+                    obj_SMG = camhold.obj_SMG;
+                    
+                    obj_Pistol = camhold.obj_Pistol;
+                    obj_Sniper = camhold.obj_Sniper;
+                    currWep = obj_Pistol;
+                    
+
+                    anim_Pistol = obj_Pistol.GetComponent<Animator>();
+                    anim_SMG = obj_Pistol.GetComponent<Animator>();
+                    anim_Sniper = obj_Pistol.GetComponent<Animator>();
+                    currWepAnim = anim_Pistol;
+                    playerCamera = cameraHolderInstance.GetComponent<CameraHolder>().fpsCamera.transform;
                     cameraSpawned = true;
+
+                    MoveFPSModelTocameraObject();
+                   
+                    HUDComponent.transform.position = cameraHolderInstance.GetComponent<CameraHolder>().cameraPosition.position;
+
                 }
             }
 
             if (hasAuthority) {
                 //Ground check
                 grounded = Physics.Raycast(orientaion.position, Vector3.down, playerHeight * 0.5f + 0.34f, whatIsGround);
+
+               // _fpsRoot.rotation = playerCamera.rotation;
+                
                 
                 GetKeyboardInput();
                 SpeedControl();
-
+               
                 //Applying drag
                 if (grounded) {
                     rb.drag = groundDrag;
@@ -92,6 +168,8 @@ public class FPSMovementController : NetworkBehaviour
             }
         }
     }
+
+
 
     private void FixedUpdate() {
         if (!hasAuthority) return;
@@ -112,22 +190,86 @@ public class FPSMovementController : NetworkBehaviour
 
             Invoke(nameof(ResetJump), jumpCooldown);
         }
+
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            ChangeWeapon(obj_Pistol);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            ChangeWeapon(obj_SMG);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            ChangeWeapon(obj_Sniper);
+        }
+
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+            if (currWep != null)
+            {
+                currWep.TryShoot(transform, playerCamera.transform.forward);
+                
+            }
+           
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (currWep != null)
+            {
+                currWep.Reload();
+
+            }
+
+        }
+
     }
+
+    private void ChangeWeapon(WeaponData w)
+    {
+        Debug.LogWarning("Changed weapon to " + w);
+        if (currWep != null)
+        {
+            currWep.gameObject.SetActive(false);
+        }
+
+       
+        currWep = w;
+        currWepAnim = currWep.GetComponent<Animator>();
+        currWep.gameObject.SetActive(true);
+    }
+    
+
 
     //[Command]
     private void MovePlayer() {
         //Calculating movement direction
+        
+        {
+            
+        }
         moveDirection = orientaion.forward * verticalInput + orientaion.right * horizontalInput;
         
         if(horizontalInput == 0 && verticalInput == 0) {
             rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
+
+            if (currWepAnim != null && currWep != null)
+            {
+                currWepAnim.SetBool("walking", false);
+            }
+           
             return;
         }
+        
+       
 
-        if (grounded) {
+        if (grounded && canMove) {
             rb.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Impulse);
-        } else if (!grounded) {
+            currWepAnim.SetBool("walking", true);
+        } else if (!grounded && canMove) {
             rb.AddForce(moveDirection.normalized * moveSpeed * airMultiplier, ForceMode.Impulse);
+            currWepAnim.SetBool("walking", false);
         }
     }
 

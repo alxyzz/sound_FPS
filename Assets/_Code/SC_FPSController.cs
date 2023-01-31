@@ -106,7 +106,7 @@ public class SC_FPSController : NetworkBehaviour
     {
         body.CurrWepAnim.ResetTrigger("shot");
         body.CurrWepAnim.SetTrigger("shot");
-        body.equippedWep.Shoot(body.transform, body.Camera.transform.forward);
+        body.equippedWep.TryShoot(body.transform, body.Camera.transform.forward);
     }
 
 
