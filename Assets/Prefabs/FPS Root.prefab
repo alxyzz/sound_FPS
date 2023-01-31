@@ -4883,6 +4883,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1968091504520473449}
   - component: {fileID: 8610812396634810176}
+  - component: {fileID: 3929809915610274594}
   m_Layer: 3
   m_Name: fpv_revolver
   m_TagString: Untagged
@@ -4921,6 +4922,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponName: 
   bulletPrefab: {fileID: 7307711811238450336, guid: e402fc79f08cc66449625a2fec723e89, type: 3}
+  anim: {fileID: 3929809915610274594}
   _maxRange: 0
   fireType: 0
   _maxAmmo: 0
@@ -4933,6 +4935,26 @@ MonoBehaviour:
   _movementMultiplier: 0
   _fireSound: {fileID: 0}
   _killIcon: {fileID: 0}
+--- !u!95 &3929809915610274594
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160732879183442387}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 37e0e0921cf51444d8235180900d16df, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1163541499270641984
 GameObject:
   m_ObjectHideFlags: 0
@@ -12836,13 +12858,14 @@ GameObject:
   m_Component:
   - component: {fileID: 2555199610761058849}
   - component: {fileID: 4183708846538453250}
+  - component: {fileID: 6699617666372371896}
   m_Layer: 3
   m_Name: fpv_smg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2555199610761058849
 Transform:
   m_ObjectHideFlags: 0
@@ -12876,6 +12899,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponName: 
   bulletPrefab: {fileID: 7307711811238450336, guid: e402fc79f08cc66449625a2fec723e89, type: 3}
+  anim: {fileID: 6699617666372371896}
   _maxRange: 0
   fireType: 1
   _maxAmmo: 0
@@ -12888,6 +12912,26 @@ MonoBehaviour:
   _movementMultiplier: 0
   _fireSound: {fileID: 0}
   _killIcon: {fileID: 0}
+--- !u!95 &6699617666372371896
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2899812584713699483}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: aa5631d99546a04489159e00e607fe0d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2915016504358611575
 GameObject:
   m_ObjectHideFlags: 0
@@ -30154,13 +30198,14 @@ GameObject:
   m_Component:
   - component: {fileID: 7648720884186031133}
   - component: {fileID: 3201048490827763979}
+  - component: {fileID: 148887102968161379}
   m_Layer: 3
   m_Name: fpv_sniper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7648720884186031133
 Transform:
   m_ObjectHideFlags: 0
@@ -30195,6 +30240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponName: 
   bulletPrefab: {fileID: 7307711811238450336, guid: e402fc79f08cc66449625a2fec723e89, type: 3}
+  anim: {fileID: 148887102968161379}
   _maxRange: 0
   fireType: 2
   _maxAmmo: 0
@@ -30207,6 +30253,26 @@ MonoBehaviour:
   _movementMultiplier: 0
   _fireSound: {fileID: 0}
   _killIcon: {fileID: 0}
+--- !u!95 &148887102968161379
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7020662883364470439}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4a21f791c77bfe44fb982281df56b41f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7021791629769597237
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,6 +25,7 @@ public class WeaponData : MonoBehaviour
     [Header("General")]
     [SerializeField] private string _weaponName;
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] public Animator anim;
     public string WeaponName => _weaponName;
     [SerializeField] private float _maxRange;
     public float MaxRange => _maxRange;
@@ -70,11 +71,17 @@ public class WeaponData : MonoBehaviour
     public void TryShoot(Transform source, Vector3 direction)
     {
         Debug.Log("TryShoot()");
-        if (!isLoaded)
+        //if (!isLoaded)
+        //{
+        //    return;
+        //}
+        if (anim)
         {
-            return;
+            
         }
-       Shoot(source, direction);
+       anim.SetTrigger("shot");
+        
+       //Shoot(source, direction);
     }
 
 
@@ -139,13 +146,18 @@ public class WeaponData : MonoBehaviour
     }
     public void Reload()
     {
+
+        GetComponent<Animator>().SetTrigger("reload");
         StartCoroutine(ReloadDelay());
     }
 
+    private bool reloading;
     IEnumerator ReloadDelay()
     {
+        reloading = true;
         yield return new WaitForSecondsRealtime(FireDelay);
         _currentAmmo = _maxAmmo;
+        reloading = false;
     }
 
     [Tooltip("delay for continuous shooting")]
