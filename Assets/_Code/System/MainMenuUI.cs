@@ -12,17 +12,11 @@ using Ping = UnityEngine.Ping;
 public class MainMenuUI : MonoBehaviour
 {
     //[SerializeField] private TMP_InputField _lobbyNicknameTextbox;
-    public TextMeshProUGUI ipHint;
-    public Image AddressValidityIndicator;
-    public Sprite addressInvalid;
-    public Sprite addressValid;
-
 
     public GameObject skillIssue;
    
     private void Start()
     {
-        ipHint.text = GetLocalIP();
         EpilepsyMenu.SetActive(true);
     }
 
@@ -98,64 +92,17 @@ public class MainMenuUI : MonoBehaviour
    
 
  
-    public void TargetAddressValueChange()
-    {
-        //AddressValidityIndicator.sprite = addressInvalid;
-        //StopCoroutine("PollPing");
+    
 
-        string address = ipHint.text;
-        //targetPing = new Ping(address);
-        //StartCoroutine("PollPing");
-
-        
-        int timeout = 1000;
-
-        var pingSender = new System.Net.NetworkInformation.Ping();
-        PingReply reply = pingSender.Send(address, 1000);
-
-        if (reply.Status == IPStatus.Success)
-        {
-            //Debug.Log(reply.Status+"<=== is the ping reply");
-
-            AddressValidityIndicator.sprite = addressValid;
-        }
-        else
-        {
-            AddressValidityIndicator.sprite = addressInvalid;
-            Debug.Log("Host is not reachable");
-        }
-    }
-
-    IEnumerator PollPing()
-    {
-        Debug.Log("Started polling the address.");
-        while (true)
-        {
-            yield return new WaitForSecondsRealtime(0.5f);
-            if (targetPing.time != 0)
-            {
-                AddressValidityIndicator.sprite = addressValid;
-            }
-        }
-    }
-
-    private void PingFoundServer()
-    {
-
-    }
+  
     
     
-    private Ping targetPing;
+    
 
     public void OnClickJoin()
     {
         SetChildrenEnabled(false);
-        if (!string.IsNullOrEmpty(ipHint.text))
-        {
-            //NetworkManager_ArenaFPS.singleton.networkAddress = ipHint.text;
-            //NetworkManager_ArenaFPS.singleton.StartClient();
-            //MainMenuUI..AddPopupHint("The LobbyID is not a number...");
-        }
+       
 
 
     }

@@ -150,7 +150,7 @@ public class FPSMovementController : NetworkBehaviour
     }
 
     private void ResetJump() {
-        Debug.Log("Ready to jump");
+        //Debug.Log("Ready to jump");
         readyToJump = true;
     }
 
