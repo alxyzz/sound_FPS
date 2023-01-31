@@ -14,6 +14,8 @@ public class FPSCameraController : MonoBehaviour
     private float xRotation;
     private float yRotation;
 
+    public UI_GameHUD fpsUI;
+
     #endregion
 
     private void Update() {

@@ -30,7 +30,10 @@ public class FPSMovementController : NetworkBehaviour
     public Transform headCube;
     public Transform capsule;
     public Transform camPosition;
-    public GameObject HUDComponent;
+    public FPS_UI_Component HUDComponent;
+
+    public GameObject _fpsRoot;
+
     public GameObject cameraHolderPrefab;
 
     [SerializeField] Rigidbody rb;
@@ -49,6 +52,7 @@ public class FPSMovementController : NetworkBehaviour
 
     private void Start() {
         playerModel.SetActive(false);
+        _fpsRoot.SetActive(false);
     }
 
     public override void OnStartAuthority()
@@ -64,6 +68,7 @@ public class FPSMovementController : NetworkBehaviour
                 SetRandomPosition();
                 PlayerCosmeticSetup();
                 playerModel.SetActive(true);
+               
 
                 if (hasAuthority && cameraSpawned == false) {
                     rb.useGravity = true;
@@ -74,6 +79,10 @@ public class FPSMovementController : NetworkBehaviour
                     cameraHolderInstance.GetComponent<CameraHolder>().cameraController.capsule = capsule;
                     headCube.gameObject.SetActive(false);
                     cameraSpawned = true;
+
+                    HUDComponent.transform.SetParent(cameraHolderInstance.GetComponent<CameraHolder>().cameraPosition);
+                    HUDComponent.transform.position = cameraHolderInstance.GetComponent<CameraHolder>().cameraPosition.position;
+                    _fpsRoot.SetActive(true);
                 }
             }
 
@@ -114,6 +123,9 @@ public class FPSMovementController : NetworkBehaviour
             Invoke(nameof(ResetJump), jumpCooldown);
         }
     }
+
+    
+
 
     //[Command]
     private void MovePlayer() {
