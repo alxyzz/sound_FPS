@@ -11,6 +11,9 @@ public class PlayerObjectController : NetworkBehaviour
     [SyncVar] public int connectionID;
     [SyncVar] public int playerIDNumber;
     [SyncVar] public ulong playerSteamID;
+    [SyncVar] public uint kills;
+    [SyncVar] public uint deaths;
+
 
     [SyncVar(hook = nameof(PlayerNameUpdate))] public string playerName;
     [SyncVar(hook = nameof(PlayerReadyUpdate))] public bool isReady;

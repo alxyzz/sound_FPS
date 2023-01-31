@@ -30,6 +30,7 @@ public class FPSMovementController : NetworkBehaviour
     public Transform headCube;
     public Transform capsule;
     public Transform camPosition;
+    public GameObject HUDComponent;
     public GameObject cameraHolderPrefab;
 
     [SerializeField] Rigidbody rb;
