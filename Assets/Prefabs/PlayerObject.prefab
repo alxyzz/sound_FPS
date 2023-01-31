@@ -27,9 +27,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8511407657681115559}
-  - {fileID: 8882206088592299787}
+  m_Children: []
   m_Father: {fileID: 2102433562653977368}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -116,37 +114,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &2226551318418764586
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8882206088592299787}
-  m_Layer: 0
-  m_Name: FPS Root
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8882206088592299787
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2226551318418764586}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 9195065415027040543}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2250961654689154255
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,7 +144,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.5, z: 0.4396}
   m_LocalScale: {x: 0.5599952, y: 0.24834391, z: 0.4224601}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1266125632074090666}
   m_Father: {fileID: 8557878127205489007}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -355,6 +323,7 @@ MonoBehaviour:
   playerSteamID: 0
   kills: 0
   deaths: 0
+  health: 0
   playerName: 
   isReady: 0
   PlayerColor: 0
@@ -424,6 +393,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  currWep: {fileID: 0}
+  obj_Pistol: {fileID: 0}
+  obj_SMG: {fileID: 0}
+  obj_Sniper: {fileID: 0}
+  _fpsRoot: {fileID: 0}
   moveSpeed: 7
   groundDrag: 5
   jumpForce: 12
@@ -439,8 +413,7 @@ MonoBehaviour:
   headCube: {fileID: 323967452865720513}
   capsule: {fileID: 2678213633056303235}
   camPosition: {fileID: 9195065415027040543}
-  HUDComponent: {fileID: 1888665906819646159}
-  _fpsRoot: {fileID: 2226551318418764586}
+  HUDComponent: {fileID: 9059365601926190018}
   cameraHolderPrefab: {fileID: 1146691099806010408, guid: be3b01d6f8b3eeb4186387a42c283054, type: 3}
   rb: {fileID: 4859656049752772890}
   playerModel: {fileID: 5891553444643522671}
@@ -592,12 +565,12 @@ Transform:
   m_Father: {fileID: 2102433562653977368}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &7913456656949197899
+--- !u!1001 &747184398742089030
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 9195065415027040543}
+    m_TransformParent: {fileID: 323967452865720513}
     m_Modifications:
     - target: {fileID: 690938555799957191, guid: 5116b063c4091284382d8cb07897d577, type: 3}
       propertyPath: m_Name
@@ -689,10 +662,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5116b063c4091284382d8cb07897d577, type: 3}
---- !u!114 &1888665906819646159 stripped
+--- !u!224 &1266125632074090666 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2003159336363714028, guid: 5116b063c4091284382d8cb07897d577, type: 3}
+  m_PrefabInstance: {fileID: 747184398742089030}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9059365601926190018 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8640117695561891460, guid: 5116b063c4091284382d8cb07897d577, type: 3}
-  m_PrefabInstance: {fileID: 7913456656949197899}
+  m_PrefabInstance: {fileID: 747184398742089030}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -700,8 +678,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e48f22fc3e7a44d89fa87cbc7806c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &8511407657681115559 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2003159336363714028, guid: 5116b063c4091284382d8cb07897d577, type: 3}
-  m_PrefabInstance: {fileID: 7913456656949197899}
-  m_PrefabAsset: {fileID: 0}

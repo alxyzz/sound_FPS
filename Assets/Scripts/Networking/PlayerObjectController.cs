@@ -13,6 +13,8 @@ public class PlayerObjectController : NetworkBehaviour
     [SyncVar] public ulong playerSteamID;
     [SyncVar] public uint kills;
     [SyncVar] public uint deaths;
+    [SyncVar] public uint health;
+
 
 
     [SyncVar(hook = nameof(PlayerNameUpdate))] public string playerName;

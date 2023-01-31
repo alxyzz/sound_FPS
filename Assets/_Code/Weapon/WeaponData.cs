@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using Mirror.Examples.AdditiveLevels;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -7,6 +9,16 @@ public enum WeaponType
     PROJECTILE,
     HITSCAN
 }
+
+
+
+
+
+
+
+
+
+
 
 public class WeaponData : MonoBehaviour
 {
@@ -21,6 +33,11 @@ public class WeaponData : MonoBehaviour
         Pistol,
         SMG,
         Sniper
+    }
+
+    void Start()
+    {
+        _currentAmmo = _maxAmmo;
     }
 
     [Header("Fire")] [Tooltip("is the weapon an automatic firearm (be able to hold LMB to fire)")] [SerializeField]
@@ -44,32 +61,41 @@ public class WeaponData : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        timeSinceLastShot += Time.deltaTime;
-    }
-    private float timeSinceLastShot;
+    //void Update()
+    //{
+    //    timeSinceLastShot += Time.deltaTime;
+    //}
+    //private float timeSinceLastShot;
     
-    public void Shoot(Transform source, Vector3 direction)
+    public void TryShoot(Transform source, Vector3 direction)
     {
-        if (timeSinceLastShot < FireDelay)
+        Debug.Log("TryShoot()");
+        if (!isLoaded)
         {
             return;
         }
+       Shoot(source, direction);
+    }
 
-        timeSinceLastShot = 0;
+
+    private void Shoot(Transform source, Vector3 direction)
+    {
+        Debug.LogWarning("SHOTS FIRED");
+
         Vector3 d = source.forward;
         d.x += Random.Range(-FireSpread, FireSpread);
         d.y += Random.Range(-FireSpread, FireSpread);
 
 
-      
-       
+
+
         Vector3 target = source.position + direction * 100f;
         RaycastHit hit;
         GameObject b = Instantiate(bulletPrefab, source.position, Quaternion.identity);
         b.GetComponent<BulletScript>().direction = target;
-        if (Physics.Raycast(source.position, direction, out hit, 100f))
+
+        ;
+        if (Physics.Raycast(Camera.main.transform.position, direction, out hit, 100f))
         {
             try
             {
@@ -81,13 +107,46 @@ public class WeaponData : MonoBehaviour
                 //Console.WriteLine(e);
                 throw;
             }
-           
+
             Debug.Log("Hit " + hit.transform.name);
         }
     }
 
+    private int _currentAmmo;
 
+    public int CurrentAmmo
+    {
+        get
+        {
+            return _currentAmmo;
+        }
+    }
 
+    [SerializeField] private int _maxAmmo;
+    public bool isLoaded
+    {
+        get
+        {
+            if (_currentAmmo == _maxAmmo)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+    public void Reload()
+    {
+        StartCoroutine(ReloadDelay());
+    }
+
+    IEnumerator ReloadDelay()
+    {
+        yield return new WaitForSecondsRealtime(FireDelay);
+        _currentAmmo = _maxAmmo;
+    }
 
     [Tooltip("delay for continuous shooting")]
     [SerializeField] private float _fireDelay;
@@ -100,6 +159,8 @@ public class WeaponData : MonoBehaviour
     [Header("Spread")]
     [Tooltip("basic spread on the crosshair. unit is pixel")]
     [SerializeField] private float _crosshairSpread;
+
+    private float _temporaryCrosshairSpread;
     public float CrosshairSpread => _crosshairSpread;
     [Tooltip("spread when firing. unit is meter")]
     [SerializeField] private float _fireSpread;

@@ -5,6 +5,7 @@ public class CameraHolder : MonoBehaviour
 {   
     public Transform cameraPosition; //Gotta find this under LocalPlayerObject > Camera Position
     public FPSCameraController cameraController;
+    public Camera fpsCamera;
 
 
 

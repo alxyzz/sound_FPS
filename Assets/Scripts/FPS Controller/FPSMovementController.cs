@@ -2,10 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.SceneManagement;
 
 public class FPSMovementController : NetworkBehaviour
 {
+
+    [Header("Weaponry")] 
+    [HideInInspector]public WeaponData currWep;
+
+    public WeaponData obj_Pistol, obj_SMG, obj_Sniper;
+    //public Transform _fpsRoot;
+
     [Header("Movement")]
     public float moveSpeed;
     public float groundDrag;
@@ -32,8 +40,6 @@ public class FPSMovementController : NetworkBehaviour
     public Transform camPosition;
     public FPS_UI_Component HUDComponent;
 
-    public GameObject _fpsRoot;
-
     public GameObject cameraHolderPrefab;
 
     [SerializeField] Rigidbody rb;
@@ -52,7 +58,6 @@ public class FPSMovementController : NetworkBehaviour
 
     private void Start() {
         playerModel.SetActive(false);
-        _fpsRoot.SetActive(false);
     }
 
     public override void OnStartAuthority()
@@ -62,6 +67,15 @@ public class FPSMovementController : NetworkBehaviour
         ResetJump();
     }
 
+
+    private void MoveFPSModelTocameraObject()
+    {
+        //_fpsRoot.SetParent(playerCamera);
+        //_fpsRoot.transform.position = playerCamera.position;
+    }
+
+    private Transform playerCamera;
+    
     private void Update() {
         if (SceneManager.GetActiveScene().name == "Game") {
             if (playerModel.activeSelf == false) {
@@ -77,22 +91,29 @@ public class FPSMovementController : NetworkBehaviour
                     cameraHolderInstance.GetComponent<CameraHolder>().cameraController.orientation = orientaion;
                     cameraHolderInstance.GetComponent<CameraHolder>().cameraController.headCube = headCube;
                     cameraHolderInstance.GetComponent<CameraHolder>().cameraController.capsule = capsule;
+
                     headCube.gameObject.SetActive(false);
+
+                    playerCamera = cameraHolderInstance.GetComponent<CameraHolder>().fpsCamera.transform;
                     cameraSpawned = true;
 
-                    HUDComponent.transform.SetParent(cameraHolderInstance.GetComponent<CameraHolder>().cameraPosition);
+                    MoveFPSModelTocameraObject();
+                   
                     HUDComponent.transform.position = cameraHolderInstance.GetComponent<CameraHolder>().cameraPosition.position;
-                    _fpsRoot.SetActive(true);
+
                 }
             }
 
             if (hasAuthority) {
                 //Ground check
                 grounded = Physics.Raycast(orientaion.position, Vector3.down, playerHeight * 0.5f + 0.34f, whatIsGround);
+
+               // _fpsRoot.rotation = playerCamera.rotation;
+                
                 
                 GetKeyboardInput();
                 SpeedControl();
-
+               
                 //Applying drag
                 if (grounded) {
                     rb.drag = groundDrag;
@@ -102,6 +123,8 @@ public class FPSMovementController : NetworkBehaviour
             }
         }
     }
+
+
 
     private void FixedUpdate() {
         if (!hasAuthority) return;
@@ -122,8 +145,45 @@ public class FPSMovementController : NetworkBehaviour
 
             Invoke(nameof(ResetJump), jumpCooldown);
         }
+
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            ChangeWeapon(obj_Pistol);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            ChangeWeapon(obj_SMG);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            ChangeWeapon(obj_Sniper);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Debug.Log(playerCamera);
+            if (currWep != null)
+            {
+                currWep.TryShoot(transform, playerCamera.transform.forward);
+                
+            }
+           
+        }
+
     }
 
+    private void ChangeWeapon(WeaponData w)
+    {
+        Debug.LogWarning("Changed weapon to " + w);
+        if (currWep != null)
+        {
+            currWep.gameObject.SetActive(false);
+        }
+        
+        currWep = w;
+        currWep.gameObject.SetActive(true);
+    }
     
 
 
