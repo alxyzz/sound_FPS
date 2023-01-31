@@ -76,8 +76,7 @@ public class SC_FPSController : NetworkBehaviour
         }
 
         HandleMovement();
-        HandleShooting();
-        HandleWeaponSwitching();
+        HandleWeapons();
         HandleExit();
 
         HandleDebug();
@@ -89,24 +88,6 @@ public class SC_FPSController : NetworkBehaviour
         {
             //Debug.Log("Server is active bool =>" + NetworkServer.active + Environment.NewLine + " Server address is " + NetworkServer.localConnection.address + Environment.NewLine + " NetworkManager_ArenaFPS.singleton.networkAddress is +> " + NetworkManager_ArenaFPS.singleton.networkAddress);
         }
-    }
-    private void HandleShooting()
-    {
-        if (true)//body.beat)
-        {
-            if (Input.GetKey(KeyCode.Mouse0))
-            {
-                Shoot();
-            }
-        }
-    }
-
-
-    private void Shoot()
-    {
-        body.CurrWepAnim.ResetTrigger("shot");
-        body.CurrWepAnim.SetTrigger("shot");
-        body.equippedWep.TryShoot(body.transform, body.Camera.transform.forward);
     }
 
 
@@ -120,7 +101,7 @@ public class SC_FPSController : NetworkBehaviour
     }
 
 
-    private void HandleWeaponSwitching()
+    private void HandleWeapons()
     {
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {

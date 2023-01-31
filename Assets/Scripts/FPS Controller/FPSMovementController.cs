@@ -209,7 +209,7 @@ public class FPSMovementController : NetworkBehaviour
         {
             if (currWep != null)
             {
-                currWep.TryShoot(transform, playerCamera.transform.forward);
+                currWep.TryShoot();
                 
             }
            

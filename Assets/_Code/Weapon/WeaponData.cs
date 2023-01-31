@@ -68,20 +68,46 @@ public class WeaponData : MonoBehaviour
     //}
     //private float timeSinceLastShot;
     
-    public void TryShoot(Transform source, Vector3 direction)
+    public void TryShoot()
     {
-        Debug.Log("TryShoot()");
+        //Debug.Log("TryShoot()");
         //if (!isLoaded)
         //{
         //    return;
         //}
-        if (anim)
+
+        if (fireType == WeaponFireType.Sniper)
         {
-            
+            anim.SetTrigger("shot");
+            return;
         }
-       anim.SetTrigger("shot");
+
+        if (CheckAndDoShootingLogistics())
+        {
+            anim.SetTrigger("shot");
+
+        }
+        else
+        {
+            _currentAmmo = _maxAmmo;
+            anim.SetTrigger("reload");
+        }
         
-       //Shoot(source, direction);
+      
+       
+    }
+
+    public bool CheckAndDoShootingLogistics()
+    {
+        if (CurrentAmmo > 0)
+        {
+            _currentAmmo--;
+            return true;
+        }
+
+        return false;
+
+
     }
 
 
@@ -146,6 +172,9 @@ public class WeaponData : MonoBehaviour
     }
     public void Reload()
     {
+        Debug.Log("Current ammo count is =>" + CurrentAmmo + Environment.NewLine + " Max ammo is =>" + _maxAmmo);
+
+
 
         GetComponent<Animator>().SetTrigger("reload");
         StartCoroutine(ReloadDelay());
