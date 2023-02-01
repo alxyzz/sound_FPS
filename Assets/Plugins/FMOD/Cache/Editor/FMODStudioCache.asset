@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-2196594651335469746
+--- !u!114 &-7786217310870668833
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10,9 +10,63 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/MAIN_BEAT
+  m_Name: event:/GUNS/Pistol/Pistol Reload
   m_EditorClassIdentifier: 
-  Path: event:/MAIN_BEAT
+  Path: event:/GUNS/Pistol/Pistol Reload
+  Guid:
+    Data1: 616141045
+    Data2: 1314240038
+    Data3: -838272583
+    Data4: 2078117435
+  Banks:
+  - {fileID: 5985132693704993857}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2005
+--- !u!114 &-2133139093526759599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/GUNS/SMG/SMG
+  m_EditorClassIdentifier: 
+  Path: event:/GUNS/SMG/SMG
+  Guid:
+    Data1: 1635805247
+    Data2: 1087552933
+    Data3: -1849804359
+    Data4: 1481282353
+  Banks:
+  - {fileID: 5985132693704993857}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 7500
+--- !u!114 &-1374784639835971587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/MAIN_BEAT_INGAME
+  m_EditorClassIdentifier: 
+  Path: event:/MAIN_BEAT_INGAME
   Guid:
     Data1: 2068699079
     Data2: 1253091719
@@ -27,34 +81,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 32000
---- !u!114 &-2141061268471279205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/GUNS/Pistol
-  m_EditorClassIdentifier: 
-  Path: event:/GUNS/Pistol
-  Guid:
-    Data1: -22654328
-    Data2: 1311401550
-    Data3: -639325259
-    Data4: 1565135742
-  Banks:
-  - {fileID: 5985132693704993857}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 0
-  Parameters:
-  - {fileID: 7292346349178494153}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 6005
 --- !u!114 &-743880391871034375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,6 +108,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 5973
+--- !u!114 &-439202958287856253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/MAIN_BEAT_MENU
+  m_EditorClassIdentifier: 
+  Path: event:/MAIN_BEAT_MENU
+  Guid:
+    Data1: -823812241
+    Data2: 1299036151
+    Data3: -1898905206
+    Data4: 21034820
+  Banks:
+  - {fileID: 5985132693704993857}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 48000
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,16 +152,73 @@ MonoBehaviour:
   - {fileID: 5985132693704993857}
   EditorEvents:
   - {fileID: -743880391871034375}
-  - {fileID: 7079575889365762235}
-  - {fileID: -2141061268471279205}
-  - {fileID: -2196594651335469746}
+  - {fileID: -2133139093526759599}
+  - {fileID: -439202958287856253}
+  - {fileID: 2741062109439083946}
+  - {fileID: 2160412047771977452}
+  - {fileID: -1374784639835971587}
+  - {fileID: -7786217310870668833}
   EditorParameters: []
   MasterBanks:
   - {fileID: 5985132693704993857}
   StringsBanks:
   - {fileID: 8615472723495915292}
-  cacheTime: 638108173277113358
+  cacheTime: 638108357360437906
   cacheVersion: 131601
+--- !u!114 &2160412047771977452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/GUNS/Pistol/Pistol
+  m_EditorClassIdentifier: 
+  Path: event:/GUNS/Pistol/Pistol
+  Guid:
+    Data1: -22654328
+    Data2: 1311401550
+    Data3: -639325259
+    Data4: 1565135742
+  Banks:
+  - {fileID: 5985132693704993857}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 500
+--- !u!114 &2741062109439083946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/GUNS/SMG/SMG Reload
+  m_EditorClassIdentifier: 
+  Path: event:/GUNS/SMG/SMG Reload
+  Guid:
+    Data1: -12174977
+    Data2: 1217454316
+    Data3: 816037558
+    Data4: 1961543434
+  Banks:
+  - {fileID: 5985132693704993857}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 7.2000003
+  Length: 3032
 --- !u!114 &5985132693704993857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,59 +234,8 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638108173277087746
+  lastModified: 638108357360431827
   FileSizes: []
-  Exists: 1
---- !u!114 &7079575889365762235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/GUNS/SMG
-  m_EditorClassIdentifier: 
-  Path: event:/GUNS/SMG
-  Guid:
-    Data1: 1635805247
-    Data2: 1087552933
-    Data3: -1849804359
-    Data4: 1481282353
-  Banks:
-  - {fileID: 5985132693704993857}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &7292346349178494153
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Pistol/Reload
-  m_EditorClassIdentifier: 
-  Name: Reload
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 3755496120
-    data2: 2012370094
-  Type: 0
-  IsGlobal: 0
-  Labels: []
   Exists: 1
 --- !u!114 &8615472723495915292
 MonoBehaviour:
@@ -193,8 +252,8 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638108173277113358
+  lastModified: 638108357360437906
   FileSizes:
   - Name: 
-    Value: 954
+    Value: 1070
   Exists: 1
