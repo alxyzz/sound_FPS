@@ -116,6 +116,7 @@ public class WeaponData : MonoBehaviour
        {
            if (shootHit.transform.tag == "Player")
            {
+               Debug.Log("Just hit player. Will damage for " + BaseDamage +" now.");
                var ENEMY = shootHit.transform.GetComponent<PlayerObjectController>();
                ENEMY.CmdTakeDamage(BaseDamage);
            }
