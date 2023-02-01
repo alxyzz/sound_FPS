@@ -60,7 +60,7 @@ public class FPSMovementController : NetworkBehaviour
     public Transform capsule;
     public Transform camPosition;
     public FPS_UI_Component HUDComponent;
-    public PlayerObjectController playController;
+    public PlayerController playController;
     public GameObject cameraHolderPrefab;
 
     [SerializeField] Rigidbody rb;
@@ -81,7 +81,7 @@ public class FPSMovementController : NetworkBehaviour
 
     private void Start() {
         playerModel.SetActive(false);
-        playController = GetComponent<PlayerObjectController>();
+        playController = GetComponent<PlayerController>();
     }
 
     public override void OnStartAuthority()
@@ -306,6 +306,6 @@ public class FPSMovementController : NetworkBehaviour
     }
 
     public void PlayerCosmeticSetup() {
-        playerMesh.material = playerColors[GetComponent<PlayerObjectController>().PlayerColor];
+        playerMesh.material = playerColors[GetComponent<PlayerController>().PlayerColor];
     }
 }

@@ -13,7 +13,7 @@ public class CharacterCosmetics : MonoBehaviour
     public TMP_Text currentColorText;
     public Sprite defaultSprite;
 
-    private PlayerObjectController playerObjectController;
+    private PlayerController _playerController;
 
     private void Start() {
         currentColorIndex = PlayerPrefs.GetInt("currentColorIndex", 0);
@@ -23,8 +23,8 @@ public class CharacterCosmetics : MonoBehaviour
     }
 
     public void NextColor() {
-        if (playerObjectController == null) {
-            playerObjectController = GameObject.Find("LocalGamePlayer").GetComponent<PlayerObjectController>();
+        if (_playerController == null) {
+            _playerController = GameObject.Find("LocalGamePlayer").GetComponent<PlayerController>();
         }
 
         if (currentColorIndex < playerColors.Length - 1) {
@@ -36,12 +36,12 @@ public class CharacterCosmetics : MonoBehaviour
 
         }
 
-        playerObjectController.PlayerColor = currentColorIndex;
+        _playerController.PlayerColor = currentColorIndex;
     }
 
     public void PreviousColor() {
-        if (playerObjectController == null) {
-            playerObjectController = GameObject.Find("LocalGamePlayer").GetComponent<PlayerObjectController>();
+        if (_playerController == null) {
+            _playerController = GameObject.Find("LocalGamePlayer").GetComponent<PlayerController>();
         }
 
         if (currentColorIndex > 0) {
@@ -53,6 +53,6 @@ public class CharacterCosmetics : MonoBehaviour
 
         }
 
-        playerObjectController.PlayerColor = currentColorIndex;
+        _playerController.PlayerColor = currentColorIndex;
     }
 }

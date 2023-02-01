@@ -5,7 +5,7 @@ using Mirror;
 using Steamworks;
 using System;
 
-public class PlayerObjectController : NetworkBehaviour
+public class PlayerController : NetworkBehaviour
 {
     //Player Data
     [SyncVar] public int connectionID;

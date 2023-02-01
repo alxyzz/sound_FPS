@@ -122,7 +122,7 @@ public class WeaponData : MonoBehaviour
            if (shootHit.transform.tag == "Player")
            {
                Debug.Log("Just hit player. Will damage for " + BaseDamage +" now.");
-               var ENEMY = shootHit.transform.GetComponent<PlayerObjectController>();
+               var ENEMY = shootHit.transform.GetComponent<PlayerController>();
 
                ENEMY.CmdTakeDamage(BaseDamage);
                //ENEMY.RefreshHealthUI();
@@ -196,11 +196,11 @@ public class WeaponData : MonoBehaviour
     //    {
     //        try
     //        {
-    //            if (hit.transform.GetComponent<PlayerObjectController>() != false)
+    //            if (hit.transform.GetComponent<PlayerController>() != false)
     //            {
                     
     //            }
-    //            PlayerObjectController enemy = hit.transform.gameObject.GetComponent<PlayerObjectController>();
+    //            PlayerController enemy = hit.transform.gameObject.GetComponent<PlayerController>();
     //            //enemy.health -= (uint)BaseDamage;
     //        }
     //        catch (Exception e)
