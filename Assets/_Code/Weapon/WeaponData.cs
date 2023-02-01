@@ -3,6 +3,7 @@ using System.Collections;
 using Mirror;
 using Mirror.Examples.AdditiveLevels;
 using UnityEngine;
+using UnityEngine.VFX;
 using Random = UnityEngine.Random;
 
 public enum WeaponType
@@ -27,6 +28,8 @@ public class WeaponData : MonoBehaviour
     [SerializeField] private string _weaponName;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] public Animator anim;
+    [SerializeField] public VisualEffect _visualEffect;
+
     public string WeaponName => _weaponName;
     [SerializeField] private float _maxRange;
     public float MaxRange => _maxRange;
@@ -37,6 +40,12 @@ public class WeaponData : MonoBehaviour
         Pistol,
         SMG,
         Sniper
+    }
+
+
+    public void DoFireEvent()
+    {
+        _visualEffect.Play();
     }
 
     void Start()
