@@ -133,7 +133,7 @@ public class LocalPlayerController : NetworkBehaviour
            // _charaMovement.OnStartCrouching += () => { UpdateCrouchCoroutine(1); };
            // _charaMovement.OnEndCrouching += () => { UpdateCrouchCoroutine(-1); };
 
-            //UI_GameHUD.Instance.RegisterPlayerTransform(transform);
+            //obsolete_GameHUD.Instance.RegisterPlayerTransform(transform);
             // Die callback
             // _playerState.onDied += Die;
         }
@@ -331,11 +331,11 @@ public class LocalPlayerController : NetworkBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            // UI_GameHUD.Instance.SetStatisticsShown(true);
+            // obsolete_GameHUD.Instance.SetStatisticsShown(true);
         }
         else if (Input.GetKeyUp(KeyCode.Tab))
         {
-            //UI_GameHUD.Instance.SetStatisticsShown(false);
+            //obsolete_GameHUD.Instance.SetStatisticsShown(false);
         }
     }
     #endregion
@@ -351,7 +351,7 @@ public class LocalPlayerController : NetworkBehaviour
         SetFirstPersonVisible(false);
         SetThirdPersonVisible(true);
 
-        // UI_GameHUD.SetUIEnabled(false);
+        // obsolete_GameHUD.SetUIEnabled(false);
 
         Camera.main.transform.GetChild(0).SetParent(Camera.main.transform.parent);
         Camera.main.transform.SetParent(null);

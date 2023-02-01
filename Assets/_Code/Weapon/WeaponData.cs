@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Mirror;
 using Mirror.Examples.AdditiveLevels;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -29,6 +30,7 @@ public class WeaponData : MonoBehaviour
     public string WeaponName => _weaponName;
     [SerializeField] private float _maxRange;
     public float MaxRange => _maxRange;
+    private Camera userCam;
     enum WeaponFireType
     {
         Pistol,
@@ -68,22 +70,109 @@ public class WeaponData : MonoBehaviour
     //}
     //private float timeSinceLastShot;
     
-    public void TryShoot(Transform source, Vector3 direction)
+    public void TryShoot(Transform c)
     {
         Debug.Log("TryShoot()");
-        //if (!isLoaded)
-        //{
-        //    return;
-        //}
-        if (anim)
+        if (!isLoaded)
         {
-            
+            Reload();
+            return;
         }
-       anim.SetTrigger("shot");
+
+        if (fireType == WeaponFireType.Sniper)
+        {
+            anim.SetTrigger("shot"); 
+            ShootArray(BaseDamage, c);
+            return;
+        }
+
+        if (CheckAndDoShootingLogistics())
+        {
+            anim.SetTrigger("shot");
+            ShootArray(BaseDamage, c);
+        }
+        else
+        {
+            _currentAmmo = _maxAmmo;
+            anim.SetTrigger("reload");
+        }
         
-       //Shoot(source, direction);
+      
+       
     }
 
+
+   // [Command]
+   public void ShootArray(int damage, Transform c)
+   {
+       var t = c.transform; 
+       Vector3 look = t.TransformDirection(Vector3.forward);
+       Debug.DrawRay(t.position, look, Color.green, 555, false);
+
+       RaycastHit shootHit;
+       Ray shootRay = new Ray(c.transform.position, look);
+
+       if (Physics.Raycast(shootRay, out shootHit, 50f))
+       {
+           if (shootHit.transform.tag == "Player")
+           {
+               var ENEMY = shootHit.transform.GetComponent<PlayerObjectController>();
+               ENEMY.CmdTakeDamage(BaseDamage);
+           }
+            Debug.Log(shootHit.transform.gameObject.name);
+       }
+        //RaycastHit shootHit;
+        //Ray shootRay = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0f));
+        //if (Physics.Raycast(shootRay, out shootHit, weaponRange, LayerMask.GetMask("Shootable")))
+        //{
+        //    string hitTag = shootHit.transform.gameObject.tag;
+        //    switch (hitTag)
+        //    {
+        //        case "Player":
+        //            shootHit.collider.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, damagePerShot,
+        //                PhotonNetwork.LocalPlayer.NickName);
+        //            PhotonNetwork.Instantiate("impactFlesh", shootHit.point,
+        //                Quaternion.Euler(shootHit.normal.x - 90, shootHit.normal.y, shootHit.normal.z), 0);
+        //            break;
+        //        default:
+        //            PhotonNetwork.Instantiate("impact" + hitTag, shootHit.point,
+        //                Quaternion.Euler(shootHit.normal.x - 90, shootHit.normal.y, shootHit.normal.z), 0);
+        //            break;
+        //    }
+        //}
+
+
+
+    }
+
+
+   public bool CheckAndDoShootingLogistics()
+    {
+        if (CurrentAmmo > 0)
+        {
+            _currentAmmo--;
+            return true;
+        }
+
+        return false;
+
+
+    }
+
+
+    void Update()
+    {
+        try
+        {
+            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            
+        }
+       
+    }
 
     private void Shoot(Transform source, Vector3 direction)
     {
@@ -106,8 +195,12 @@ public class WeaponData : MonoBehaviour
         {
             try
             {
-                PlayerBody enemy = hit.transform.gameObject.GetComponent<PlayerBody>();
-                enemy.Health -= BaseDamage;
+                if (hit.transform.GetComponent<PlayerObjectController>() != false)
+                {
+                    
+                }
+                PlayerObjectController enemy = hit.transform.gameObject.GetComponent<PlayerObjectController>();
+                enemy.health -= (uint)BaseDamage;
             }
             catch (Exception e)
             {
@@ -146,6 +239,9 @@ public class WeaponData : MonoBehaviour
     }
     public void Reload()
     {
+        Debug.Log("Current ammo count is =>" + CurrentAmmo + Environment.NewLine + " Max ammo is =>" + _maxAmmo);
+
+
 
         GetComponent<Animator>().SetTrigger("reload");
         StartCoroutine(ReloadDelay());
