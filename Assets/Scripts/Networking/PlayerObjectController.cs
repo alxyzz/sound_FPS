@@ -13,7 +13,7 @@ public class PlayerObjectController : NetworkBehaviour
     [SyncVar] public ulong playerSteamID;
     [SyncVar] public uint kills;
     [SyncVar] public uint deaths;
-    [SyncVar(hook = nameof(OnChangeHealth))] public uint health;
+    [SyncVar] public uint health;
 
    
 
@@ -79,10 +79,16 @@ public class PlayerObjectController : NetworkBehaviour
     #region Health, Death, and Taxes
     public void CmdSuicide()
     {
-        //TakeDamage(health, transform.name);
+        CmdTakeDamage(health);
+        RefreshHealthUI();
     }
-    [Command]
-    public void CmdTakeDamage(int i)
+
+    public void RefreshHealthUI()
+    {
+        fpsUI.health.text = health.ToString();
+    }
+    [Command(requiresAuthority = false)]
+    public void CmdTakeDamage(uint i)
     {
         
         if (fpsController.isDead) return;
@@ -91,14 +97,25 @@ public class PlayerObjectController : NetworkBehaviour
 
         if (health > 0) return;
         Debug.LogError("Player just died. Disregard this error.");
-        //Player is dead
-        //ServerPlayerDie(sourcePlayerId);
+       RpcDie();
+    }
+    [ClientRpc]
+    void RpcDie()
+    {
+        Debug.Log("Player has died!");
+        gameObject.SetActive(false);
+        fpsController.SetRandomPosition();
+        fpsController.isDead = true;
+        StartCoroutine(delayRespawn());
     }
 
-    void OnChangeHealth(uint health)
+   IEnumerator delayRespawn()
     {
-        fpsUI.health.text = health.ToString();
+        yield return new WaitForSecondsRealtime(5);
+        gameObject.SetActive(true);
     }
+
+
     //public void RpcDie()
     //{
     //    Debug.Log("Person just died.");

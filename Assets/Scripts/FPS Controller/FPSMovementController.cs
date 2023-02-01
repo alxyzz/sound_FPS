@@ -38,7 +38,7 @@ public class FPSMovementController : NetworkBehaviour
 
     public bool isDead;
     public bool isStunned;
-
+    public bool onbeat;
 
     public bool canMove
     {
@@ -123,7 +123,7 @@ public class FPSMovementController : NetworkBehaviour
                     cameraHolderInstance.GetComponent<CameraHolder>().cameraController.capsule = capsule;
                      camholder = cameraHolderInstance.GetComponent<CameraHolder>();
                     headCube.gameObject.SetActive(false);
-
+                    //NetworkServer.Spawn(cameraHolderInstance, new NetworkConnectionToServer());
                     capsule.gameObject.layer = LayerMask.NameToLayer("InvisibleToSelf");
 
                     obj_SMG = camholder.obj_SMG;
@@ -141,6 +141,8 @@ public class FPSMovementController : NetworkBehaviour
 
                    
                     HUDComponent.transform.position = cameraHolderInstance.GetComponent<CameraHolder>().cameraPosition.position;
+                    HUDComponent.fpscontrol = this;
+                    //HUDComponent.StartBeat();
 
                 }
             }
@@ -201,14 +203,14 @@ public class FPSMovementController : NetworkBehaviour
             ChangeWeapon(obj_Sniper);
         }
 
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             if (currWep != null)
             {
                 Debug.Log("tried to shoot.");
                 if (isLocalPlayer)
                 {
-                    currWep.TryShoot(playerCamera);
+                    currWep.TryShoot(playerCamera, transform);
 
                 }
 
