@@ -230,6 +230,7 @@ GameObject:
   - component: {fileID: 2838508170883827892}
   - component: {fileID: 1262216672012249989}
   - component: {fileID: 6341197612359514340}
+  - component: {fileID: 1077644595944908779}
   m_Layer: 0
   m_Name: PlayerObject
   m_TagString: Player
@@ -415,6 +416,7 @@ MonoBehaviour:
   grounded: 0
   isDead: 0
   isStunned: 0
+  onbeat: 0
   orientation: {fileID: 8557878127205489007}
   headCube: {fileID: 323967452865720513}
   capsule: {fileID: 6724692780365973477}
@@ -508,6 +510,24 @@ MonoBehaviour:
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   target: {fileID: 323967452865720513}
+--- !u!143 &1077644595944908779
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2467476685779324940}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5891553444643522671
 GameObject:
   m_ObjectHideFlags: 0
