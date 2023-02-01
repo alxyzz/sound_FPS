@@ -38,7 +38,7 @@ public class FPSMovementController : NetworkBehaviour
 
     public bool isDead;
     public bool isStunned;
-
+    public bool onbeat;
 
     public bool canMove
     {
@@ -60,7 +60,7 @@ public class FPSMovementController : NetworkBehaviour
     public Transform capsule;
     public Transform camPosition;
     public FPS_UI_Component HUDComponent;
-    public PlayerObjectController playController;
+    public PlayerController playController;
     public GameObject cameraHolderPrefab;
 
     [SerializeField] Rigidbody rb;
@@ -81,7 +81,7 @@ public class FPSMovementController : NetworkBehaviour
 
     private void Start() {
         playerModel.SetActive(false);
-        playController = GetComponent<PlayerObjectController>();
+        playController = GetComponent<PlayerController>();
     }
 
     public override void OnStartAuthority()
@@ -123,7 +123,7 @@ public class FPSMovementController : NetworkBehaviour
                     cameraHolderInstance.GetComponent<CameraHolder>().cameraController.capsule = capsule;
                      camholder = cameraHolderInstance.GetComponent<CameraHolder>();
                     headCube.gameObject.SetActive(false);
-
+                    //NetworkServer.Spawn(cameraHolderInstance, new NetworkConnectionToServer());
                     capsule.gameObject.layer = LayerMask.NameToLayer("InvisibleToSelf");
 
                     obj_SMG = camholder.obj_SMG;
@@ -141,6 +141,8 @@ public class FPSMovementController : NetworkBehaviour
 
                    
                     HUDComponent.transform.position = cameraHolderInstance.GetComponent<CameraHolder>().cameraPosition.position;
+                    HUDComponent.fpscontrol = this;
+                    //HUDComponent.StartBeat();
 
                 }
             }
@@ -201,14 +203,14 @@ public class FPSMovementController : NetworkBehaviour
             ChangeWeapon(obj_Sniper);
         }
 
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             if (currWep != null)
             {
                 Debug.Log("tried to shoot.");
                 if (isLocalPlayer)
                 {
-                    currWep.TryShoot(playerCamera);
+                    currWep.TryShoot(playerCamera, transform);
 
                 }
 
@@ -304,6 +306,6 @@ public class FPSMovementController : NetworkBehaviour
     }
 
     public void PlayerCosmeticSetup() {
-        playerMesh.material = playerColors[GetComponent<PlayerObjectController>().PlayerColor];
+        playerMesh.material = playerColors[GetComponent<PlayerController>().PlayerColor];
     }
 }

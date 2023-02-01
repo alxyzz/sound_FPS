@@ -31,6 +31,7 @@ public class WeaponData : MonoBehaviour
     [SerializeField] private float _maxRange;
     public float MaxRange => _maxRange;
     private Camera userCam;
+    private Transform userloc;
     enum WeaponFireType
     {
         Pistol,
@@ -70,26 +71,29 @@ public class WeaponData : MonoBehaviour
     //}
     //private float timeSinceLastShot;
     
-    public void TryShoot(Transform c)
+    public void TryShoot(Transform c, Transform user)
     {
+        
+        userloc = user;
         Debug.Log("TryShoot()");
-        if (!isLoaded)
+        if (!isLoaded )
         {
-            Reload();
+            //Reload();
             return;
         }
 
+        fireCooldown = true;
         if (fireType == WeaponFireType.Sniper)
         {
             anim.SetTrigger("shot"); 
-            ShootArray(BaseDamage, c);
+            ShootRay(BaseDamage, c, user);
             return;
         }
 
         if (CheckAndDoShootingLogistics())
         {
             anim.SetTrigger("shot");
-            ShootArray(BaseDamage, c);
+            ShootRay(BaseDamage, c, user);
         }
         else
         {
@@ -103,47 +107,29 @@ public class WeaponData : MonoBehaviour
 
 
    // [Command]
-   public void ShootArray(int damage, Transform c)
+   public void ShootRay(uint damage, Transform c, Transform userlocation)
    {
-       var t = c.transform; 
-       Vector3 look = t.TransformDirection(Vector3.forward);
-       Debug.DrawRay(t.position, look, Color.green, 555, false);
+      
+       Vector3 look = c.transform.TransformDirection(Vector3.forward);
+       Debug.DrawRay(userlocation.position, look, Color.green, 555, false);
 
        RaycastHit shootHit;
-       Ray shootRay = new Ray(c.transform.position, look);
-
-       if (Physics.Raycast(shootRay, out shootHit, 50f))
+       Ray shootRay = new Ray(userlocation.position, look);
+       GameObject b = Instantiate(bulletPrefab, c.transform.position, Quaternion.identity);
+       b.GetComponent<BulletScript>().direction = look*10;
+        if (Physics.Raycast(shootRay, out shootHit))
        {
            if (shootHit.transform.tag == "Player")
            {
                Debug.Log("Just hit player. Will damage for " + BaseDamage +" now.");
-               var ENEMY = shootHit.transform.GetComponent<PlayerObjectController>();
+               var ENEMY = shootHit.transform.GetComponent<PlayerController>();
+
                ENEMY.CmdTakeDamage(BaseDamage);
+               //ENEMY.RefreshHealthUI();
            }
             Debug.Log(shootHit.transform.gameObject.name);
        }
-        //RaycastHit shootHit;
-        //Ray shootRay = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0f));
-        //if (Physics.Raycast(shootRay, out shootHit, weaponRange, LayerMask.GetMask("Shootable")))
-        //{
-        //    string hitTag = shootHit.transform.gameObject.tag;
-        //    switch (hitTag)
-        //    {
-        //        case "Player":
-        //            shootHit.collider.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, damagePerShot,
-        //                PhotonNetwork.LocalPlayer.NickName);
-        //            PhotonNetwork.Instantiate("impactFlesh", shootHit.point,
-        //                Quaternion.Euler(shootHit.normal.x - 90, shootHit.normal.y, shootHit.normal.z), 0);
-        //            break;
-        //        default:
-        //            PhotonNetwork.Instantiate("impact" + hitTag, shootHit.point,
-        //                Quaternion.Euler(shootHit.normal.x - 90, shootHit.normal.y, shootHit.normal.z), 0);
-        //            break;
-        //    }
-        //}
-
-
-
+      
     }
 
 
@@ -160,9 +146,23 @@ public class WeaponData : MonoBehaviour
 
     }
 
+   private float timeBetweenShots;
+   private bool fireCooldown;
 
     void Update()
     {
+        //if (fireCooldown)
+        //{
+        //    timeBetweenShots += Time.deltaTime;
+        //    if (timeBetweenShots >= FireDelay)
+        //    {
+        //        timeBetweenShots = 0;
+        //        fireCooldown = false;
+        //        Debug.LogWarning("can fire again with your gun - GUN COOLDOWN");
+        //    }
+        //}
+        
+
         try
         {
             Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward);
@@ -175,43 +175,43 @@ public class WeaponData : MonoBehaviour
        
     }
 
-    private void Shoot(Transform source, Vector3 direction)
-    {
-        Debug.LogWarning("SHOTS FIRED");
+    //private void Shoot(Transform source, Vector3 direction)
+    //{
+    //    Debug.LogWarning("SHOTS FIRED");
 
-        Vector3 d = source.forward;
-        d.x += Random.Range(-FireSpread, FireSpread);
-        d.y += Random.Range(-FireSpread, FireSpread);
-
-
+    //    Vector3 d = source.forward;
+    //    d.x += Random.Range(-FireSpread, FireSpread);
+    //    d.y += Random.Range(-FireSpread, FireSpread);
 
 
-        Vector3 target = source.position + direction * 100f;
-        RaycastHit hit;
-        GameObject b = Instantiate(bulletPrefab, source.position, Quaternion.identity);
-        b.GetComponent<BulletScript>().direction = target;
 
-        ;
-        if (Physics.Raycast(Camera.main.transform.position, direction, out hit, 100f))
-        {
-            try
-            {
-                if (hit.transform.GetComponent<PlayerObjectController>() != false)
-                {
+
+    //    Vector3 target = source.position + direction * 100f;
+    //    RaycastHit hit;
+    //    GameObject b = Instantiate(bulletPrefab, source.position, Quaternion.identity);
+    //    b.GetComponent<BulletScript>().direction = target;
+
+    //    ;
+    //    if (Physics.Raycast(Camera.main.transform.position, direction, out hit, 100f))
+    //    {
+    //        try
+    //        {
+    //            if (hit.transform.GetComponent<PlayerController>() != false)
+    //            {
                     
-                }
-                PlayerObjectController enemy = hit.transform.gameObject.GetComponent<PlayerObjectController>();
-                enemy.health -= (uint)BaseDamage;
-            }
-            catch (Exception e)
-            {
-                //Console.WriteLine(e);
-                throw;
-            }
+    //            }
+    //            PlayerController enemy = hit.transform.gameObject.GetComponent<PlayerController>();
+    //            //enemy.health -= (uint)BaseDamage;
+    //        }
+    //        catch (Exception e)
+    //        {
+    //            //Console.WriteLine(e);
+    //            throw;
+    //        }
 
-            Debug.Log("Hit " + hit.transform.name);
-        }
-    }
+    //        Debug.Log("Hit " + hit.transform.name);
+    //    }
+    //}
 
     private int _currentAmmo;
 
@@ -278,11 +278,11 @@ public class WeaponData : MonoBehaviour
 
 
     [Header("Damage")]
-    [SerializeField] private int _baseDamage;
+    [SerializeField] private uint _baseDamage;
     [SerializeField] private float _dmgHeadMultiplier = 2f;
     [SerializeField] private float _dmgBodyMultiplier = 1f;
     
-    public int BaseDamage => _baseDamage;
+    public uint BaseDamage => _baseDamage;
     public int DamageHead => (int)(_baseDamage * _dmgHeadMultiplier);
     public int DamageBody => (int)(_baseDamage * _dmgBodyMultiplier);
    

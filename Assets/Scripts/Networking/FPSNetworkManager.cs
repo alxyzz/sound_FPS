@@ -7,18 +7,18 @@ using UnityEngine.SceneManagement;
 
 public class FPSNetworkManager : NetworkManager
 {
-    [SerializeField] private PlayerObjectController gamePlayerPrefab;
-    public List<PlayerObjectController> gamePlayers { get; } = new List<PlayerObjectController>();
+    [SerializeField] private PlayerController gamePlayerPrefab;
+    public List<PlayerController> gamePlayers { get; } = new List<PlayerController>();
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         if (SceneManager.GetActiveScene().name == "Lobby") {
-            PlayerObjectController gamePlayerInstance = Instantiate(gamePlayerPrefab);
-            gamePlayerInstance.connectionID = conn.connectionId;
-            gamePlayerInstance.playerIDNumber = gamePlayers.Count + 1;
-            gamePlayerInstance.playerSteamID = (ulong) SteamMatchmaking.GetLobbyMemberByIndex((CSteamID) SteamLobby.Instance.currentLobbyID, gamePlayers.Count);
+            PlayerController playerInstance = Instantiate(gamePlayerPrefab);
+            playerInstance.connectionID = conn.connectionId;
+            playerInstance.playerIDNumber = gamePlayers.Count + 1;
+            playerInstance.playerSteamID = (ulong) SteamMatchmaking.GetLobbyMemberByIndex((CSteamID) SteamLobby.Instance.currentLobbyID, gamePlayers.Count);
 
-            NetworkServer.AddPlayerForConnection(conn, gamePlayerInstance.gameObject);
+            NetworkServer.AddPlayerForConnection(conn, playerInstance.gameObject);
         }
     }
 

@@ -22,7 +22,7 @@ public class LobbyController : MonoBehaviour
     public ulong currentLobbyID;
     public bool playerItemCreated = false;
     private List<PlayerListItem> playerListItems = new List<PlayerListItem>();
-    public PlayerObjectController localPlayerController;
+    public PlayerController localPlayerController;
 
     //Ready
     public Button startGameButton;
@@ -60,7 +60,7 @@ public class LobbyController : MonoBehaviour
     public void CheckIfAllReady() {
         bool isAllReady = false;
 
-        foreach (PlayerObjectController player in Manager.gamePlayers)
+        foreach (PlayerController player in Manager.gamePlayers)
         {
             if (player.isReady) isAllReady = true;
             else {
@@ -94,12 +94,12 @@ public class LobbyController : MonoBehaviour
 
     public void FindLocalPlayer() {
         localPlayerObject = GameObject.Find("LocalGamePlayer");
-        localPlayerController = localPlayerObject.GetComponent<PlayerObjectController>();
+        localPlayerController = localPlayerObject.GetComponent<PlayerController>();
     }
 
     public void CreateHostPlayerItem()
     {
-        foreach (PlayerObjectController player in Manager.gamePlayers)
+        foreach (PlayerController player in Manager.gamePlayers)
         {
             GameObject newPlayerItem = Instantiate(playerListItemPrefab) as GameObject;
             PlayerListItem newPlayerListItemScript = newPlayerItem.GetComponent<PlayerListItem>();
@@ -122,7 +122,7 @@ public class LobbyController : MonoBehaviour
 
     public void CreateClientPlayerItem()
     {
-        foreach (PlayerObjectController player in Manager.gamePlayers)
+        foreach (PlayerController player in Manager.gamePlayers)
         {
             if (!playerListItems.Any(b => b.connectionID == player.connectionID)) {
                 GameObject newPlayerItem = Instantiate(playerListItemPrefab) as GameObject;
@@ -145,7 +145,7 @@ public class LobbyController : MonoBehaviour
 
     public void UpdatePlayerItem()
     {
-        foreach (PlayerObjectController player in Manager.gamePlayers)
+        foreach (PlayerController player in Manager.gamePlayers)
         {
             foreach(PlayerListItem playerListItemScript in playerListItems) {
                 if (playerListItemScript.connectionID == player.connectionID) {
