@@ -111,6 +111,20 @@ public class WeaponData : MonoBehaviour
     }
 
 
+    void Update()
+    {
+        try
+        {
+            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            
+        }
+       
+    }
+
     private void Shoot(Transform source, Vector3 direction)
     {
         Debug.LogWarning("SHOTS FIRED");
@@ -132,8 +146,12 @@ public class WeaponData : MonoBehaviour
         {
             try
             {
-                PlayerBody enemy = hit.transform.gameObject.GetComponent<PlayerBody>();
-                enemy.Health -= BaseDamage;
+                if (hit.transform.GetComponent<PlayerObjectController>() != false)
+                {
+                    
+                }
+                PlayerObjectController enemy = hit.transform.gameObject.GetComponent<PlayerObjectController>();
+                enemy.health -= (uint)BaseDamage;
             }
             catch (Exception e)
             {

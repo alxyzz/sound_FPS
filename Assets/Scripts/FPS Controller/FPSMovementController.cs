@@ -95,21 +95,12 @@ public class FPSMovementController : NetworkBehaviour
     }
 
 
-    public void Die()
-    {
-        
-    }
-
-
-    public void Respawn()
-    {
-
-    }
+   
 
 
 
 
-    private Transform playerCamera;
+   // private Transform playerCamera;
     
     private void Update() {
         if (SceneManager.GetActiveScene().name == "Game") {
@@ -139,7 +130,7 @@ public class FPSMovementController : NetworkBehaviour
                     anim_SMG = obj_Pistol.GetComponent<Animator>();
                     anim_Sniper = obj_Pistol.GetComponent<Animator>();
                     currWepAnim = anim_Pistol;
-                    playerCamera = cameraHolderInstance.GetComponent<CameraHolder>().fpsCamera.transform;
+                    //playerCamera = cameraHolderInstance.GetComponent<CameraHolder>().fpsCamera.transform;
                     cameraSpawned = true;
 
                     MoveFPSModelTocameraObject();
@@ -209,6 +200,7 @@ public class FPSMovementController : NetworkBehaviour
         {
             if (currWep != null)
             {
+                Debug.Log("tried to shoot.");
                 currWep.TryShoot();
                 
             }
@@ -225,6 +217,7 @@ public class FPSMovementController : NetworkBehaviour
         }
 
     }
+
 
     private void ChangeWeapon(WeaponData w)
     {
@@ -245,10 +238,6 @@ public class FPSMovementController : NetworkBehaviour
     //[Command]
     private void MovePlayer() {
         //Calculating movement direction
-        
-        {
-            
-        }
         moveDirection = orientaion.forward * verticalInput + orientaion.right * horizontalInput;
         
         if(horizontalInput == 0 && verticalInput == 0) {
@@ -258,7 +247,6 @@ public class FPSMovementController : NetworkBehaviour
             {
                 currWepAnim.SetBool("walking", false);
             }
-           
             return;
         }
         
@@ -296,8 +284,11 @@ public class FPSMovementController : NetworkBehaviour
         readyToJump = true;
     }
 
-    public void SetRandomPosition() {
-        transform.position = new Vector3(Random.Range(-20f, 20f), 4f, Random.Range(-20f, 20f));
+    public void SetRandomPosition()
+    {
+        FPSNetworkManager.singleton.GetStartPosition();
+        //transform.position = new Vector3(Random.Range(-20f, 20f), 4f, Random.Range(-20f, 20f));
+        transform.position = FPSNetworkManager.singleton.GetStartPosition().position;
     }
 
     public void PlayerCosmeticSetup() {

@@ -26,4 +26,31 @@ public class FPSNetworkManager : NetworkManager
         ServerChangeScene(sceneName);
     }
 
+    static void Respawn(NetworkIdentity identity)
+    {
+        if (identity.netId == 0)
+        {
+            // If the object has not been spawned, then do a full spawn and update observers
+            //Spawn(identity.gameObject, identity.connectionToClient);
+        }
+        else
+        {
+            // otherwise just replace his data
+           // SendSpawnMessage(identity, identity.connectionToClient);
+        }
+    }
+
+    IEnumerator RespawnDelay()
+    {
+
+        Debug.Log("Respawnin player in 8 seconds.");
+        yield return new WaitForSecondsRealtime(8f);
+        Debug.Log("Respawning player.");
+       // RpcRespawn();
+    }
+    public void CmdRespawnPlayer()
+    {
+
+    }
+
 }
