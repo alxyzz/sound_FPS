@@ -26,7 +26,7 @@ public class FPSNetworkManager : NetworkManager
         ServerChangeScene(sceneName);
     }
 
-    static void Respawn(NetworkIdentity identity)
+     void Respawn(NetworkIdentity identity)
     {
         if (identity.netId == 0)
         {

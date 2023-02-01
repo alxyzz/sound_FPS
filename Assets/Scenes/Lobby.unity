@@ -676,7 +676,6 @@ MonoBehaviour:
   - {fileID: 2100000, guid: b74cce2cb04595f43ba239b81fd1f01c, type: 2}
   - {fileID: 2100000, guid: 403616e5b48707e42a18f9d3e566ef18, type: 2}
   - {fileID: 2100000, guid: 296f449c7e216314d9f9e91d93ea5b6c, type: 2}
-  - {fileID: 2100000, guid: 2f0fb1b766aae774f9cd345e753b8336, type: 2}
   - {fileID: 2100000, guid: 89d2b4a3718acc344a532a1fe46bc997, type: 2}
   - {fileID: 2100000, guid: a0b62f7213f22de41a38c43d29b6c75e, type: 2}
   currentColorImage: {fileID: 873901584}

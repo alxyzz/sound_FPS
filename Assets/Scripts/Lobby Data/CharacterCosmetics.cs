@@ -11,7 +11,6 @@ public class CharacterCosmetics : MonoBehaviour
     public Material[] playerColors;
     public Image currentColorImage;
     public TMP_Text currentColorText;
-    public Sprite peterSprite;
     public Sprite defaultSprite;
 
     private PlayerObjectController playerObjectController;
@@ -21,11 +20,6 @@ public class CharacterCosmetics : MonoBehaviour
         currentColorImage.color = playerColors[currentColorIndex].color;
         currentColorText.text = playerColors[currentColorIndex].name;
 
-        if (currentColorText.text == "Peter Griffin") {
-                currentColorImage.sprite = peterSprite;
-            } else {
-                currentColorImage.sprite = null;
-            }
     }
 
     public void NextColor() {
@@ -40,11 +34,6 @@ public class CharacterCosmetics : MonoBehaviour
             currentColorImage.color = playerColors[currentColorIndex].color;
             currentColorText.text = playerColors[currentColorIndex].name;
 
-            if (currentColorText.text == "Peter Griffin") {
-                currentColorImage.sprite = peterSprite;
-            } else {
-                currentColorImage.sprite = null;
-            }
         }
 
         playerObjectController.PlayerColor = currentColorIndex;
@@ -62,11 +51,6 @@ public class CharacterCosmetics : MonoBehaviour
             currentColorImage.color = playerColors[currentColorIndex].color;
             currentColorText.text = playerColors[currentColorIndex].name;
 
-            if (currentColorText.text == "Peter Griffin") {
-                currentColorImage.sprite = peterSprite;
-            } else {
-                currentColorImage.sprite = null;
-            }
         }
 
         playerObjectController.PlayerColor = currentColorIndex;

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using Mirror;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -11,9 +12,9 @@ public class FPSMovementController : NetworkBehaviour
     [Header("Weaponry")] 
     [HideInInspector]public WeaponData currWep;
     
-    public WeaponData obj_Pistol, obj_SMG, obj_Sniper;
+    [HideInInspector]public WeaponData obj_Pistol, obj_SMG, obj_Sniper;
 
-    public Animator anim_Pistol, anim_SMG, anim_Sniper, currWepAnim;
+    [HideInInspector] public Animator anim_Pistol, anim_SMG, anim_Sniper, currWepAnim;
     //public Transform _fpsRoot;
 
     [Header("Movement")]
@@ -54,20 +55,22 @@ public class FPSMovementController : NetworkBehaviour
 
 
     [Header("References")]
-    public Transform orientaion;
+    public Transform orientation;
     public Transform headCube;
     public Transform capsule;
     public Transform camPosition;
     public FPS_UI_Component HUDComponent;
-
+    public PlayerObjectController playController;
     public GameObject cameraHolderPrefab;
 
     [SerializeField] Rigidbody rb;
 
     [Header("Multiplayer Config")]
     public GameObject playerModel;
-    public MeshRenderer playerMesh;
+    public SkinnedMeshRenderer playerMesh;
     public Material[] playerColors;
+    public Material characterVisorMat;
+    public GameObject characterVisorObject;
 
     Vector3 moveDirection;
     float horizontalInput;
@@ -78,6 +81,7 @@ public class FPSMovementController : NetworkBehaviour
 
     private void Start() {
         playerModel.SetActive(false);
+        playController = GetComponent<PlayerObjectController>();
     }
 
     public override void OnStartAuthority()
@@ -95,12 +99,12 @@ public class FPSMovementController : NetworkBehaviour
     }
 
 
-   
 
 
+    private CameraHolder camholder;
 
 
-   // private Transform playerCamera;
+  private Transform playerCamera;
     
     private void Update() {
         if (SceneManager.GetActiveScene().name == "Game") {
@@ -114,15 +118,17 @@ public class FPSMovementController : NetworkBehaviour
                     rb.useGravity = true;
                     GameObject cameraHolderInstance = Instantiate(cameraHolderPrefab, transform.position, transform.rotation);
                     cameraHolderInstance.GetComponent<CameraHolder>().cameraPosition = camPosition;
-                    cameraHolderInstance.GetComponent<CameraHolder>().cameraController.orientation = orientaion;
+                    cameraHolderInstance.GetComponent<CameraHolder>().cameraController.orientation = orientation;
                     cameraHolderInstance.GetComponent<CameraHolder>().cameraController.headCube = headCube;
                     cameraHolderInstance.GetComponent<CameraHolder>().cameraController.capsule = capsule;
-                    CameraHolder camhold = cameraHolderInstance.GetComponent<CameraHolder>();
+                     camholder = cameraHolderInstance.GetComponent<CameraHolder>();
                     headCube.gameObject.SetActive(false);
-                    obj_SMG = camhold.obj_SMG;
-                    
-                    obj_Pistol = camhold.obj_Pistol;
-                    obj_Sniper = camhold.obj_Sniper;
+
+                    capsule.gameObject.layer = LayerMask.NameToLayer("InvisibleToSelf");
+
+                    obj_SMG = camholder.obj_SMG;
+                    obj_Pistol = camholder.obj_Pistol;
+                    obj_Sniper = camholder.obj_Sniper;
                     currWep = obj_Pistol;
                     
 
@@ -130,10 +136,9 @@ public class FPSMovementController : NetworkBehaviour
                     anim_SMG = obj_Pistol.GetComponent<Animator>();
                     anim_Sniper = obj_Pistol.GetComponent<Animator>();
                     currWepAnim = anim_Pistol;
-                    //playerCamera = cameraHolderInstance.GetComponent<CameraHolder>().fpsCamera.transform;
+                    playerCamera = cameraHolderInstance.GetComponent<CameraHolder>().fpsCamera.transform;
                     cameraSpawned = true;
 
-                    MoveFPSModelTocameraObject();
                    
                     HUDComponent.transform.position = cameraHolderInstance.GetComponent<CameraHolder>().cameraPosition.position;
 
@@ -142,7 +147,7 @@ public class FPSMovementController : NetworkBehaviour
 
             if (hasAuthority) {
                 //Ground check
-                grounded = Physics.Raycast(orientaion.position, Vector3.down, playerHeight * 0.5f + 0.34f, whatIsGround);
+                grounded = Physics.Raycast(orientation.position, Vector3.down, playerHeight * 0.5f + 0.34f, whatIsGround);
 
                // _fpsRoot.rotation = playerCamera.rotation;
                 
@@ -201,10 +206,17 @@ public class FPSMovementController : NetworkBehaviour
             if (currWep != null)
             {
                 Debug.Log("tried to shoot.");
-                currWep.TryShoot();
-                
+                if (isLocalPlayer)
+                {
+                    currWep.TryShoot(playerCamera);
+
+                }
+
             }
-           
+
+
+
+
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -218,7 +230,7 @@ public class FPSMovementController : NetworkBehaviour
 
     }
 
-
+    public GameObject testobj;
     private void ChangeWeapon(WeaponData w)
     {
         Debug.LogWarning("Changed weapon to " + w);
@@ -238,7 +250,7 @@ public class FPSMovementController : NetworkBehaviour
     //[Command]
     private void MovePlayer() {
         //Calculating movement direction
-        moveDirection = orientaion.forward * verticalInput + orientaion.right * horizontalInput;
+        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         
         if(horizontalInput == 0 && verticalInput == 0) {
             rb.velocity = new Vector3(0f, rb.velocity.y, 0f);

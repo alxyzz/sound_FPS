@@ -81,24 +81,23 @@ public class PlayerObjectController : NetworkBehaviour
     {
         //TakeDamage(health, transform.name);
     }
-    public void TakeDamage(int i)
+    [Command]
+    public void CmdTakeDamage(int i)
     {
         
-        //Can't do damage on a player if they are dead or just re-spawned
         if (fpsController.isDead) return;
 
         health -= (uint)i;
 
         if (health > 0) return;
-
+        Debug.LogError("Player just died. Disregard this error.");
         //Player is dead
         //ServerPlayerDie(sourcePlayerId);
     }
 
-    void OnChangeHealth(int health)
+    void OnChangeHealth(uint health)
     {
-        //change health display
-        //grunt based on damage amount
+        fpsUI.health.text = health.ToString();
     }
     //public void RpcDie()
     //{
