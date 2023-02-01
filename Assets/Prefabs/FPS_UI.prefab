@@ -122,6 +122,8 @@ MonoBehaviour:
   GameLogRef: {fileID: 7570161273564530706}
   health: {fileID: 1622825197697859967}
   kills: {fileID: 6825493026722772683}
+  beatSymbol: {fileID: 5938725233013027986}
+  fpscontrol: {fileID: 0}
 --- !u!1 &927008501059652690
 GameObject:
   m_ObjectHideFlags: 0

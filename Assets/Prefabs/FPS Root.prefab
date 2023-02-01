@@ -4926,9 +4926,9 @@ MonoBehaviour:
   _maxRange: 0
   fireType: 0
   _maxAmmo: 0
-  _fireDelay: 0
+  _fireDelay: 1.5
   _crosshairSpread: 0
-  _fireSpread: 0
+  _fireSpread: 0.6
   _baseDamage: 0
   _dmgHeadMultiplier: 2
   _dmgBodyMultiplier: 1
@@ -12903,9 +12903,9 @@ MonoBehaviour:
   _maxRange: 0
   fireType: 1
   _maxAmmo: 0
-  _fireDelay: 0
+  _fireDelay: 0.6
   _crosshairSpread: 0
-  _fireSpread: 0
+  _fireSpread: 0.6
   _baseDamage: 0
   _dmgHeadMultiplier: 2
   _dmgBodyMultiplier: 1
@@ -30244,10 +30244,10 @@ MonoBehaviour:
   _maxRange: 0
   fireType: 2
   _maxAmmo: 0
-  _fireDelay: 0
+  _fireDelay: 4
   _crosshairSpread: 0
   _fireSpread: 0
-  _baseDamage: 0
+  _baseDamage: 60
   _dmgHeadMultiplier: 2
   _dmgBodyMultiplier: 1
   _movementMultiplier: 0
