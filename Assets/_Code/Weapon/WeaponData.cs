@@ -112,7 +112,7 @@ public class WeaponData : MonoBehaviour
        RaycastHit shootHit;
        Ray shootRay = new Ray(c.transform.position, look);
 
-       if (Physics.Raycast(shootRay, out shootHit, 150f))
+       if (Physics.Raycast(shootRay, out shootHit))
        {
            if (shootHit.transform.tag == "Player")
            {
