@@ -203,7 +203,7 @@ public class AnimateGridMaterialWithSound : MonoBehaviour
 
 
  
-
+        
         soundAnalyzer.SetAudio(audioSource);
 
 
