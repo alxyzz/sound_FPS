@@ -6,12 +6,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_GameHUD : MonoBehaviour
+public class obsolete_GameHUD : MonoBehaviour
 {
-    private static UI_GameHUD instance;
+    private static obsolete_GameHUD instance;
 
 
-    public static UI_GameHUD Instance => instance;
+    public static obsolete_GameHUD Instance => instance;
     private void Awake()
     {
         instance = this;

@@ -78,14 +78,14 @@ public class WeaponData : MonoBehaviour
 
         if (fireType == WeaponFireType.Sniper)
         {
-            anim.SetTrigger("shot");
+            anim.SetTrigger("shot"); CmdShoot(BaseDamage);
             return;
         }
 
         if (CheckAndDoShootingLogistics())
         {
             anim.SetTrigger("shot");
-
+            CmdShoot(BaseDamage);
         }
         else
         {
@@ -96,6 +96,14 @@ public class WeaponData : MonoBehaviour
       
        
     }
+
+
+
+    public void CmdShoot(int damage)
+    {
+
+    }
+
 
     public bool CheckAndDoShootingLogistics()
     {

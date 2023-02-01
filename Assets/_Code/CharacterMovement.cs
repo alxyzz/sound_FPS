@@ -201,19 +201,19 @@ public class CharacterMovement : NetworkBehaviour
         //if (IsOnGround)
         //{
         //    if (IsCrouching)
-        //        UI_GameHUD.SetCrosshairMovementSpread(0);
+        //        obsolete_GameHUD.SetCrosshairMovementSpread(0);
         //    else if (_lastMovementInput != Vector3.zero)
         //    {
         //        if (IsWalking)
-        //            UI_GameHUD.SetCrosshairMovementSpread(30 * _lastMovementInput.sqrMagnitude);
+        //            obsolete_GameHUD.SetCrosshairMovementSpread(30 * _lastMovementInput.sqrMagnitude);
         //        else
-        //            UI_GameHUD.SetCrosshairMovementSpread(100 * _lastMovementInput.sqrMagnitude);
+        //            obsolete_GameHUD.SetCrosshairMovementSpread(100 * _lastMovementInput.sqrMagnitude);
         //    }
         //    else
-        //        UI_GameHUD.SetCrosshairMovementSpread(5);
+        //        obsolete_GameHUD.SetCrosshairMovementSpread(5);
         //}
         //else
-        //    UI_GameHUD.SetCrosshairMovementSpread(200);
+        //    obsolete_GameHUD.SetCrosshairMovementSpread(200);
     }
 }
 

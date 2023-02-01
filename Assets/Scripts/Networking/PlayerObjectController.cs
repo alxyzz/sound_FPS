@@ -13,9 +13,9 @@ public class PlayerObjectController : NetworkBehaviour
     [SyncVar] public ulong playerSteamID;
     [SyncVar] public uint kills;
     [SyncVar] public uint deaths;
-   public uint health;
+    [SyncVar(hook = nameof(OnChangeHealth))] public uint health;
 
-    // [SyncVar(hook = nameof(OnChangeHealth))] 
+   
 
     [SyncVar(hook = nameof(PlayerNameUpdate))] public string playerName;
     [SyncVar(hook = nameof(PlayerReadyUpdate))] public bool isReady;
@@ -26,6 +26,7 @@ public class PlayerObjectController : NetworkBehaviour
 
     //Components
     private FPSMovementController fpsController;
+    private FPS_UI_Component fpsUI;
 
     private void PlayerReadyUpdate(bool oldReady, bool newReady)
     {
@@ -41,6 +42,17 @@ public class PlayerObjectController : NetworkBehaviour
     private void CmdSetPlayerReady() {
         this.PlayerReadyUpdate(this.isReady, !this.isReady);
     }
+
+    void OnChangeHealth(uint oldvalue, uint newvalue)
+    {
+        fpsUI.health.text = newvalue.ToString();
+        
+    }
+
+
+
+
+
 
     public void ChangeReady() {
         if (hasAuthority) CmdSetPlayerReady();

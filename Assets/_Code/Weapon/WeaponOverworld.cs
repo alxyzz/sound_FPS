@@ -53,14 +53,14 @@ public class WeaponOverworld : NetworkBehaviour
     //public void EndBeingSeen()
     //{
     //    // Debug.Log(name + " was unseen.");
-    //    UI_GameHUD.ClearInteractionHint();
+    //    obsolete_GameHUD.ClearInteractionHint();
     //    Destroy(_widget);
     //}
 
     //public void StartBeingSeen()
     //{
     //    Debug.Log(name + " was seen.");
-    //    UI_GameHUD.AddInteractionHint("E: Pick up");
+    //    obsolete_GameHUD.AddInteractionHint("E: Pick up");
     //    _widget = Instantiate(_pfbInfoWidget);
     //    _widget.GetComponent<WID_Info>().Initialise(transform, _data.WeaponName, CurrentAmmo, BackupAmmo, _data.RangeType);
     //}

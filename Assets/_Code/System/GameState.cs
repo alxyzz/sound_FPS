@@ -189,7 +189,7 @@ public class GameState : NetworkBehaviour
         // _playerNetIds
         //foreach (var item in PlayerList_NameID)
         //{
-        //    UI_GameHUD.Instance.AddPlayerToStatistics(item.Key);
+        //    obsolete_GameHUD.Instance.AddPlayerToStatistics(item.Key);
 
         //}
         //PlayerList_NameID.Callback += PlayerListNameIdCallback;
@@ -201,13 +201,13 @@ public class GameState : NetworkBehaviour
         switch (op)
         {
             case SyncIDictionary<ulong, uint>.Operation.OP_ADD:
-                //UI_GameHUD.Instance.AddPlayerToStatistics(item);
+                //obsolete_GameHUD.Instance.AddPlayerToStatistics(item);
                 UpdateConnectedPlayerNum();
                 break;
             case SyncIDictionary<ulong, uint>.Operation.OP_CLEAR:
                 break;
             case SyncIDictionary<ulong, uint>.Operation.OP_REMOVE:
-                //UI_GameHUD.Instance.RemovePlayerFromStatistics(item);
+                //obsolete_GameHUD.Instance.RemovePlayerFromStatistics(item);
                 break;
             case SyncIDictionary<ulong, uint>.Operation.OP_SET:
                 break;
@@ -224,7 +224,7 @@ public class GameState : NetworkBehaviour
     [Client]
     private void UpdateConnectedPlayerNum()
     {
-        //UI_GameHUD.Instance.UpdateConnectedPlayerNum(PlayerList_NameID.Count, SteamMatchmaking.GetNumLobbyMembers(SteamLobby.Instance.CurrentLobbyId));
+        //obsolete_GameHUD.Instance.UpdateConnectedPlayerNum(PlayerList_NameID.Count, SteamMatchmaking.GetNumLobbyMembers(SteamLobby.Instance.CurrentLobbyId));
     }
 
     private static GameState instance;
@@ -297,7 +297,7 @@ public class GameState : NetworkBehaviour
     {
         //if (TryGetPlayerStateByNetId(netId, out PlayerBody ps))
         //{
-        //    UI_GameHUD.ShowWinner(ps);
+        //    obsolete_GameHUD.ShowWinner(ps);
         //}
     }
     #endregion
