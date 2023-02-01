@@ -76,11 +76,11 @@ public class WeaponData : MonoBehaviour
         
         userloc = user;
         Debug.Log("TryShoot()");
-        if (!isLoaded )
-        {
-            //Reload();
-            return;
-        }
+        //if (!isLoaded )
+        //{
+        //    //Reload();
+        //    return;
+        //}
 
         fireCooldown = true;
         if (fireType == WeaponFireType.Sniper)
@@ -110,25 +110,25 @@ public class WeaponData : MonoBehaviour
    public void ShootRay(uint damage, Transform c, Transform userlocation)
    {
       
-       Vector3 look = c.transform.TransformDirection(Vector3.forward);
-       Debug.DrawRay(userlocation.position, look, Color.green, 555, false);
+       //Vector3 look = c.transform.TransformDirection(Vector3.forward);
+       //Debug.DrawRay(userlocation.position, look, Color.green, 555, false);
 
-       RaycastHit shootHit;
-       Ray shootRay = new Ray(userlocation.position, look);
-       GameObject b = Instantiate(bulletPrefab, c.transform.position, Quaternion.identity);
-       b.GetComponent<BulletScript>().direction = look*10;
-        if (Physics.Raycast(shootRay, out shootHit))
-       {
-           if (shootHit.transform.tag == "Player")
-           {
-               Debug.Log("Just hit player. Will damage for " + BaseDamage +" now.");
-               var ENEMY = shootHit.transform.GetComponent<PlayerController>();
+       //RaycastHit shootHit;
+       //Ray shootRay = new Ray(userlocation.position, look);
+       //GameObject b = Instantiate(bulletPrefab, c.transform.position, Quaternion.identity);
+       //b.GetComponent<BulletScript>().direction = look*10;
+       // if (Physics.Raycast(shootRay, out shootHit))
+       //{
+       //    if (shootHit.transform.tag == "Player")
+       //    {
+       //        Debug.Log("Just hit player. Will damage for " + BaseDamage +" now.");
+       //        var ENEMY = shootHit.transform.GetComponent<PlayerController>();
 
-               ENEMY.CmdTakeDamage(BaseDamage);
-               //ENEMY.RefreshHealthUI();
-           }
-            Debug.Log(shootHit.transform.gameObject.name);
-       }
+       //        ENEMY.CmdTakeDamage(BaseDamage);
+       //        //ENEMY.RefreshHealthUI();
+       //    }
+       //     Debug.Log(shootHit.transform.gameObject.name);
+      // }
       
     }
 
