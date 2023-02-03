@@ -20,9 +20,9 @@ public class LobbyController : MonoBehaviour
 
     //Other Data
     public ulong currentLobbyID;
-    public bool playerItemCreated = false;
+    public bool playerItemCreated;
     private List<PlayerListItem> playerListItems = new List<PlayerListItem>();
-    public PlayerController localPlayerController;
+    public PlayerController LocalPlayerController;
 
     //Ready
     public Button startGameButton;
@@ -46,11 +46,11 @@ public class LobbyController : MonoBehaviour
     }
 
     public void ReadyPlayer() {
-        localPlayerController.ChangeReady();
+        LocalPlayerController.ChangeReady();
     }
 
     public void UpdateButton() {
-        if (localPlayerController.isReady) {
+        if (LocalPlayerController.isReady) {
             readyButtonText.text = "Not Ready";
         } else {
             readyButtonText.text = "Ready";
@@ -70,7 +70,7 @@ public class LobbyController : MonoBehaviour
         }
 
         if (isAllReady) {
-            if (localPlayerController.playerIDNumber == 1) {
+            if (LocalPlayerController.playerIDNumber == 1) {
                 startGameButton.interactable = true;
             } else {
                 startGameButton.interactable = false;
@@ -85,7 +85,9 @@ public class LobbyController : MonoBehaviour
         lobbyNameText.text = SteamMatchmaking.GetLobbyData(new CSteamID(currentLobbyID), "name");
     }
 
-    public void UpdatePlayerList() {
+    public void UpdatePlayerList()
+    {
+        //Debug.Log("got here @ LobbyController.UpdatePlayerList()");
         if (!playerItemCreated) CreateHostPlayerItem(); //Host
         if (playerListItems.Count < Manager.gamePlayers.Count) CreateClientPlayerItem();
         if (playerListItems.Count > Manager.gamePlayers.Count) RemovePlayerItem();
@@ -94,7 +96,7 @@ public class LobbyController : MonoBehaviour
 
     public void FindLocalPlayer() {
         localPlayerObject = GameObject.Find("LocalGamePlayer");
-        localPlayerController = localPlayerObject.GetComponent<PlayerController>();
+        LocalPlayerController = localPlayerObject.GetComponent<PlayerController>();
     }
 
     public void CreateHostPlayerItem()
@@ -153,7 +155,7 @@ public class LobbyController : MonoBehaviour
                     playerListItemScript.isReady = player.isReady;
                     playerListItemScript.SetPlayerValues();
 
-                    if (player == localPlayerController) {
+                    if (player == LocalPlayerController) {
                         UpdateButton();
                     }
                 }
@@ -186,7 +188,7 @@ public class LobbyController : MonoBehaviour
     }
 
     public void StartGame(string sceneName) {
-        localPlayerController.CanStartGame(sceneName);
+        LocalPlayerController.CanStartGame(sceneName);
     }
 
 }

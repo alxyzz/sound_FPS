@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.SceneManagement;
 
-public class FPSMovementController : NetworkBehaviour
+public class PlayerControls : NetworkBehaviour
 {
 
     [Header("Weaponry")] 
@@ -60,7 +60,7 @@ public class FPSMovementController : NetworkBehaviour
     public Transform capsule;
     public Transform camPosition;
     public FPS_UI_Component HUDComponent;
-    public PlayerController playController;
+    public PlayerController PlayController;
     public GameObject cameraHolderPrefab;
 
     [SerializeField] Rigidbody rb;
@@ -82,7 +82,7 @@ public class FPSMovementController : NetworkBehaviour
 
     private void Start() {
         playerModel.SetActive(false);
-        playController = GetComponent<PlayerController>();
+        PlayController = GetComponent<PlayerController>();
     }
 
     public override void OnStartAuthority()
@@ -100,7 +100,48 @@ public class FPSMovementController : NetworkBehaviour
     }
 
 
+    [Command]
+    public void ShootPreparedRay()
+    {
+        ShootRay(currWep.BaseDamage, transform, playerCamera.transform.forward);
 
+
+    }
+
+
+
+    [ClientRpc]
+    public void ShootRay(uint damage, Transform source, Vector3 direction)
+    {
+
+
+
+       currWep.DoFireEvent();
+
+        Vector3 look = playerCamera.transform.TransformDirection(Vector3.forward);
+        Debug.DrawRay(source.position, look, Color.green, 555, false);
+
+        RaycastHit shootHit;
+        Ray shootRay = new Ray(source.position, look);
+        GameObject b = Instantiate(currWep.bulletPrefab, source.position, Quaternion.identity);
+        b.GetComponent<BulletScript>().direction = look * 100;
+        if (Physics.Raycast(shootRay, out shootHit))
+        {
+            if (shootHit.transform.tag == "Player")
+            {
+                if (shootHit.transform == transform)
+                {
+                    return;
+                }
+                Debug.Log("Just hit player. Will damage for " + currWep.BaseDamage + " now.");
+                var ENEMY = shootHit.transform.GetComponent<PlayerController>();
+
+                ENEMY.CmdTakeDamage(currWep.BaseDamage);
+                //ENEMY.RefreshHealthUI();
+            }
+            Debug.Log("Just hit " + shootHit.transform.gameObject.name);
+        }
+    }
 
     private CameraHolder camholder;
 
@@ -173,6 +214,11 @@ public class FPSMovementController : NetworkBehaviour
     public void PlayGunFire(AudioClip b)
     {
         localSoundPlayer.PlayOneShot(b);
+        HUDComponent.ChangeAmmoCounter(currWep.CurrentAmmo);
+
+
+
+
     }
 
 
@@ -183,10 +229,14 @@ public class FPSMovementController : NetworkBehaviour
         }
     }
 
+    public float period;
+
     private void GetKeyboardInput() {
         //Fetching keyboard input
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+        period += Time.deltaTime;
+       
 
         if(Input.GetKey(jumpKey) && readyToJump && grounded) {
             readyToJump = false;
@@ -196,13 +246,21 @@ public class FPSMovementController : NetworkBehaviour
             Invoke(nameof(ResetJump), jumpCooldown);
         }
 
-
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+          
+            Debug.Log("Take Damage test.");
+          PlayController.CmdTakeDamage(5);
+        }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            ChangeWeapon(obj_Pistol);
+            
+                ChangeWeapon(obj_Pistol);
+            
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
+            
             ChangeWeapon(obj_SMG);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
@@ -210,17 +268,42 @@ public class FPSMovementController : NetworkBehaviour
             ChangeWeapon(obj_Sniper);
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0))
         {
             if (currWep != null)
             {
-                Debug.Log("tried to shoot.");
+                
+                
                 if (isLocalPlayer)
                 {
-                    currWep.moveController = this;
-                    currWep.TryShoot(playerCamera, transform);
+                   
+                    switch (currWep.ShootingType)
+                    {
+                        case WeaponData.WeaponFireType.Pistol: 
+                            if (period > 1.2) //0.2s clearance
+                        {
+                            
+                            currWep.moveController = this;
+                            currWep.TryShoot(playerCamera, transform);
+                            }
+                            break;
+                        case WeaponData.WeaponFireType.SMG:
+                            if (period > 0 && period > 0.4) //0.2s clearance
+                            {
+                               
+                                currWep.moveController = this;
+                                currWep.TryShoot(playerCamera, transform);
+                            }
+                            break;
+                        case WeaponData.WeaponFireType.Sniper:
+                            if (period > 0 && period > 0.1) //0.2s clearance
+                            {
 
-
+                                currWep.moveController = this;
+                                currWep.TryShoot(playerCamera, transform);
+                            }
+                            break;
+                    }
                 }
 
             }
@@ -234,11 +317,16 @@ public class FPSMovementController : NetworkBehaviour
             if (currWep != null)
             {
                 currWep.Reload();
+               
 
             }
 
         }
-
+        if (period > 1.2f) //0.2s clearance
+        {
+            localSoundPlayer.PlayOneShot(SoundList.instance.beatsound); //only plays on player due to no clientRPC
+            period = 0;
+        }
     }
 
     public GameObject testobj;

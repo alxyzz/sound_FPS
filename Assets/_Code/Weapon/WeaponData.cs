@@ -27,17 +27,17 @@ public class WeaponData : NetworkBehaviour
 {
     [Header("General")]
     [SerializeField] private string _weaponName;
-    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] public GameObject bulletPrefab;
     [SerializeField] public Animator anim;
     [SerializeField] public VisualEffect _visualEffect;
 
-    [SerializeField] public FPSMovementController moveController;
+    [SerializeField] public PlayerControls moveController;
     public string WeaponName => _weaponName;
     [SerializeField] private float _maxRange;
     public float MaxRange => _maxRange;
     private Camera userCam;
     private Transform userloc;
-    enum WeaponFireType
+    public enum WeaponFireType
     {
         Pistol,
         SMG,
@@ -59,21 +59,11 @@ public class WeaponData : NetworkBehaviour
     [Header("Fire")] [Tooltip("is the weapon an automatic firearm (be able to hold LMB to fire)")] [SerializeField]
     private WeaponFireType fireType;
 
-    public int ShootingType
+    public WeaponFireType ShootingType
     {
         get
         {
-            switch (fireType)
-            {
-                case WeaponFireType.Pistol:
-                    return 1;
-                case WeaponFireType.SMG:
-                    return 2;
-                case WeaponFireType.Sniper:
-                    return 3;
-                default:
-                    return 3;
-            }
+            return fireType;
         }
     }
 
@@ -120,64 +110,7 @@ public class WeaponData : NetworkBehaviour
     /// <summary>
     /// shoots the ray defined previously at a slight delay to synchronize it with the gun firing
     /// </summary>
-    [Command]
-    public void ShootPreparedRay()
-    {
-        
-        ShootRay(camTransform, userTransform);
-    }
-
-   [ClientRpc]
-   
-   public void ShootRay(Transform c, Transform userlocation)
-   {
-       DoFireEvent();
-
-        //switch (fireType)
-        //{
-        //     case WeaponFireType.Sniper:
-        //         moveController.
-
-        //         break;
-        //     case WeaponFireType.SMG:
-
-
-        //         break;
-        //     case WeaponFireType.Pistol:
-
-
-        //         break;
-        // }
-        //CinemachineCore.CameraUpdatedEvent += ShootAfterCinemachineLateUpdate();
-
-        //Vector3 look = c.transform.TransformDirection(Vector3.forward);
-        //Debug.DrawRay(userlocation.position, look, Color.green, 555, false);
-
-        //RaycastHit shootHit;
-        //Ray shootRay = new Ray(userlocation.position, look);
-        //GameObject b = Instantiate(bulletPrefab, c.transform.position, Quaternion.identity);
-        //b.GetComponent<BulletScript>().direction = look*10;
-        // if (Physics.Raycast(shootRay, out shootHit))
-        //{
-        //    if (shootHit.transform.tag == "Player")
-        //    {
-        //        Debug.Log("Just hit player. Will damage for " + BaseDamage +" now.");
-        //        var ENEMY = shootHit.transform.GetComponent<PlayerController>();
-
-        //        ENEMY.CmdTakeDamage(BaseDamage);
-        //        //ENEMY.RefreshHealthUI();
-        //    }
-        //     Debug.Log(shootHit.transform.gameObject.name);
-        // }
-
-    }
-
-
-
-   public void ShootAfterCinemachineLateUpdate()
-   {
-
-   }
+    
 
 
 
@@ -294,6 +227,7 @@ public class WeaponData : NetworkBehaviour
 
         GetComponent<Animator>().SetTrigger("reload");
         StartCoroutine(ReloadDelay());
+            moveController.HUDComponent.ChangeAmmoCounter(6);
     }
 
     private bool reloading;

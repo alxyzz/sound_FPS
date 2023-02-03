@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.VFX;
@@ -7,7 +8,7 @@ using UnityEngine.VFX;
 public class FpAnimEventHandler : MonoBehaviour
 {
     private Animator _animator;
-    [SerializeField] public FPSMovementController _fpsCont;
+    [SerializeField] public PlayerControls _fpsCont;
     private VisualEffect v;
 
     private WeaponData selfWepData;
@@ -29,48 +30,44 @@ public class FpAnimEventHandler : MonoBehaviour
 
     public void RevShootEvent()
     {
-        if (_fpsCont == null)
-        {
-            Debug.Log("fpscont was null");
-        }
-        if (SoundList.instance == null)
-        {
-            Debug.Log("SoundList.instance was null");
-        }
+        _fpsCont = selfWepData.moveController;
 
         _fpsCont.PlayGunFire(SoundList.instance.pistolFire);
-        selfWepData.ShootPreparedRay();
+        selfWepData.moveController.ShootPreparedRay();
 
     }
     public void SmgShootEvent()
     {
+        _fpsCont = selfWepData.moveController;
+
         _fpsCont.PlayGunFire(SoundList.instance.smgFire);
-        selfWepData.ShootPreparedRay();
+        selfWepData.moveController.ShootPreparedRay();
 
     }
     public void SniperShootEvent()
     {
-        _fpsCont.PlayGunFire(SoundList.instance.sniperFire);   selfWepData.ShootPreparedRay();
+        _fpsCont = selfWepData.moveController;
+
+        _fpsCont.PlayGunFire(SoundList.instance.sniperFire);   selfWepData.moveController.ShootPreparedRay();
 
     }
 
 
     public void RevReload()
     {
-        _fpsCont.PlayGunFire(SoundList.instance.GetSound("Pistol"));
-        selfWepData.ShootPreparedRay();
+        //_fpsCont.PlayGunFire(SoundList.instance.GetSound("Pistol"));
+        
 
     }
     public void SmgReload()
     {
-        _fpsCont.PlayGunFire(SoundList.instance.GetSound("Pistol"));
-        selfWepData.ShootPreparedRay();
+       // _fpsCont.PlayGunFire(SoundList.instance.GetSound("Pistol"));
+       
 
     }
     public void SniperReload()
     {
-        _fpsCont.PlayGunFire(SoundList.instance.GetSound("Pistol"));
-        selfWepData.ShootPreparedRay();
+       // _fpsCont.PlayGunFire(SoundList.instance.GetSound("Pistol"));
 
     }
 

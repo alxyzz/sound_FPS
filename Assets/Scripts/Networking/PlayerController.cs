@@ -25,7 +25,7 @@ public class PlayerController : NetworkBehaviour
     [SyncVar(hook = nameof(SendPlayerColor))] public int PlayerFace;
 
     //Components
-    private FPSMovementController fpsController;
+    private PlayerControls fpsController;
     private FPS_UI_Component fpsUI;
 
     private void PlayerReadyUpdate(bool oldReady, bool newReady)
@@ -43,11 +43,7 @@ public class PlayerController : NetworkBehaviour
         this.PlayerReadyUpdate(this.isReady, !this.isReady);
     }
 
-    void OnChangeHealth(uint oldvalue, uint newvalue)
-    {
-        fpsUI.health.text = newvalue.ToString();
-        
-    }
+
 
 
     public void Update()
@@ -79,7 +75,7 @@ public class PlayerController : NetworkBehaviour
 
     private void Start() {
         DontDestroyOnLoad(this.gameObject);
-        fpsController = GetComponent<FPSMovementController>();
+        fpsController = GetComponent<PlayerControls>();
     }
 
     #region Health, Death, and Taxes

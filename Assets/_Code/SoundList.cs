@@ -12,7 +12,7 @@ public struct NamedAudioClip
 
 public class SoundList : MonoBehaviour
 {
-
+    public AudioClip beatsound;
 
     public AudioClip pistolFire;
     public AudioClip smgFire;

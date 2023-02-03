@@ -4929,7 +4929,7 @@ MonoBehaviour:
   _weaponName: 
   bulletPrefab: {fileID: 7307711811238450336, guid: e402fc79f08cc66449625a2fec723e89, type: 3}
   anim: {fileID: 3929809915610274594}
-  _visualEffect: {fileID: 0}
+  _visualEffect: {fileID: 545155663804826514}
   moveController: {fileID: 0}
   _maxRange: 0
   fireType: 0
@@ -13021,7 +13021,7 @@ MonoBehaviour:
   _weaponName: 
   bulletPrefab: {fileID: 7307711811238450336, guid: e402fc79f08cc66449625a2fec723e89, type: 3}
   anim: {fileID: 6699617666372371896}
-  _visualEffect: {fileID: 0}
+  _visualEffect: {fileID: 453141843490901203}
   moveController: {fileID: 0}
   _maxRange: 0
   fireType: 1
@@ -30477,7 +30477,7 @@ MonoBehaviour:
   _weaponName: 
   bulletPrefab: {fileID: 7307711811238450336, guid: e402fc79f08cc66449625a2fec723e89, type: 3}
   anim: {fileID: 148887102968161379}
-  _visualEffect: {fileID: 0}
+  _visualEffect: {fileID: 8664062907048801807}
   moveController: {fileID: 0}
   _maxRange: 0
   fireType: 2

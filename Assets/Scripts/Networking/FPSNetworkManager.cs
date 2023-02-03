@@ -13,7 +13,7 @@ public class FPSNetworkManager : NetworkManager
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         if (SceneManager.GetActiveScene().name == "Lobby") {
-            PlayerController playerInstance = Instantiate(gamePlayerPrefab);
+            var playerInstance = Instantiate(gamePlayerPrefab);
             playerInstance.connectionID = conn.connectionId;
             playerInstance.playerIDNumber = gamePlayers.Count + 1;
             playerInstance.playerSteamID = (ulong) SteamMatchmaking.GetLobbyMemberByIndex((CSteamID) SteamLobby.Instance.currentLobbyID, gamePlayers.Count);
