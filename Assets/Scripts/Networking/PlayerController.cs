@@ -50,7 +50,13 @@ public class PlayerController : NetworkBehaviour
     }
 
 
-
+    public void Update()
+    {
+        if (hasAuthority)
+        {
+            
+        }
+    }
 
 
 
@@ -80,10 +86,10 @@ public class PlayerController : NetworkBehaviour
     public void CmdSuicide()
     {
         CmdTakeDamage(health);
-        RefreshHealthUI();
+        RefreshHealthUi();
     }
 
-    public void RefreshHealthUI()
+    public void RefreshHealthUi()
     {
         fpsUI.health.text = health.ToString();
     }
@@ -112,6 +118,7 @@ public class PlayerController : NetworkBehaviour
    IEnumerator delayRespawn()
     {
         yield return new WaitForSecondsRealtime(5);
+        fpsController.SetRandomPosition();
         gameObject.SetActive(true);
     }
 
