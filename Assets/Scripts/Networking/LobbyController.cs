@@ -43,7 +43,8 @@ public class LobbyController : MonoBehaviour
 
     void Awake() {
         if (Instance == null) Instance = this;
-    }
+
+        }
 
     public void ReadyPlayer() {
         LocalPlayerController.ChangeReady();

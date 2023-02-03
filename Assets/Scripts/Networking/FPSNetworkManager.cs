@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class FPSNetworkManager : NetworkManager
 {
+   
+
     [SerializeField] private PlayerController gamePlayerPrefab;
     public List<PlayerController> gamePlayers { get; } = new List<PlayerController>();
 
@@ -30,12 +32,10 @@ public class FPSNetworkManager : NetworkManager
     {
         if (identity.netId == 0)
         {
-            // If the object has not been spawned, then do a full spawn and update observers
-            //Spawn(identity.gameObject, identity.connectionToClient);
+
         }
         else
         {
-            // otherwise just replace his data
            // SendSpawnMessage(identity, identity.connectionToClient);
         }
     }

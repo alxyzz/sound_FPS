@@ -76,6 +76,7 @@ public class PlayerController : NetworkBehaviour
     private void Start() {
         DontDestroyOnLoad(this.gameObject);
         fpsController = GetComponent<ActionManager>();
+
     }
 
     #region Health, Death, and Taxes
