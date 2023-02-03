@@ -71,6 +71,7 @@ public class FPSMovementController : NetworkBehaviour
     public Material[] playerColors;
     public Material characterVisorMat;
     public GameObject characterVisorObject;
+    public AudioSource localSoundPlayer;
 
     Vector3 moveDirection;
     float horizontalInput;
@@ -112,8 +113,8 @@ public class FPSMovementController : NetworkBehaviour
                 SetRandomPosition();
                 PlayerCosmeticSetup();
                 playerModel.SetActive(true);
-               
-
+                localSoundPlayer = GetComponent<AudioSource>();
+                    
                 if (hasAuthority && cameraSpawned == false) {
                     rb.useGravity = true;
                     GameObject cameraHolderInstance = Instantiate(cameraHolderPrefab, transform.position, transform.rotation);
@@ -169,6 +170,12 @@ public class FPSMovementController : NetworkBehaviour
 
 
 
+    public void PlayGunFire(AudioClip b)
+    {
+        localSoundPlayer.PlayOneShot(b);
+    }
+
+
     private void FixedUpdate() {
         if (!hasAuthority) return;
         if (SceneManager.GetActiveScene().name == "Game") {
@@ -210,7 +217,9 @@ public class FPSMovementController : NetworkBehaviour
                 Debug.Log("tried to shoot.");
                 if (isLocalPlayer)
                 {
+                    currWep.moveController = this;
                     currWep.TryShoot(playerCamera, transform);
+
 
                 }
 

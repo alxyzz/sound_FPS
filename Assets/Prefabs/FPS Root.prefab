@@ -4886,6 +4886,8 @@ GameObject:
   - component: {fileID: 3929809915610274594}
   - component: {fileID: 545155663804826514}
   - component: {fileID: 5337944011688213392}
+  - component: {fileID: 8312669784482929353}
+  - component: {fileID: 4656805133130942941}
   m_Layer: 3
   m_Name: fpv_revolver
   m_TagString: Untagged
@@ -4922,10 +4924,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71f15c6523d63f4bba2e442273e25de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   _weaponName: 
   bulletPrefab: {fileID: 7307711811238450336, guid: e402fc79f08cc66449625a2fec723e89, type: 3}
   anim: {fileID: 3929809915610274594}
   _visualEffect: {fileID: 0}
+  moveController: {fileID: 0}
   _maxRange: 0
   fireType: 0
   _maxAmmo: 0
@@ -5035,6 +5040,36 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &8312669784482929353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160732879183442387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: cadbf800af7c57745b95e4653f628032
+  hasSpawned: 0
+--- !u!114 &4656805133130942941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160732879183442387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b2fe342a4859564b8cbbb7dbafc14fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fpsCont: {fileID: 0}
 --- !u!1 &1163541499270641984
 GameObject:
   m_ObjectHideFlags: 0
@@ -12941,6 +12976,8 @@ GameObject:
   - component: {fileID: 6699617666372371896}
   - component: {fileID: 453141843490901203}
   - component: {fileID: 9053690541378406987}
+  - component: {fileID: 2844995506420935383}
+  - component: {fileID: 7918023131967409100}
   m_Layer: 3
   m_Name: fpv_smg
   m_TagString: Untagged
@@ -12979,10 +13016,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71f15c6523d63f4bba2e442273e25de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   _weaponName: 
   bulletPrefab: {fileID: 7307711811238450336, guid: e402fc79f08cc66449625a2fec723e89, type: 3}
   anim: {fileID: 6699617666372371896}
   _visualEffect: {fileID: 0}
+  moveController: {fileID: 0}
   _maxRange: 0
   fireType: 1
   _maxAmmo: 0
@@ -13060,7 +13100,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2899812584713699483}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -13070,7 +13110,7 @@ VFXRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -13092,6 +13132,36 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &2844995506420935383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2899812584713699483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: cadbf800af7c57745b95e4653f628032
+  hasSpawned: 0
+--- !u!114 &7918023131967409100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2899812584713699483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b2fe342a4859564b8cbbb7dbafc14fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fpsCont: {fileID: 0}
 --- !u!1 &2915016504358611575
 GameObject:
   m_ObjectHideFlags: 0
@@ -30361,6 +30431,8 @@ GameObject:
   - component: {fileID: 148887102968161379}
   - component: {fileID: 8664062907048801807}
   - component: {fileID: 1902012015515202060}
+  - component: {fileID: 3613725229265030356}
+  - component: {fileID: 8008681369019031591}
   m_Layer: 3
   m_Name: fpv_sniper
   m_TagString: Untagged
@@ -30400,10 +30472,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71f15c6523d63f4bba2e442273e25de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   _weaponName: 
   bulletPrefab: {fileID: 7307711811238450336, guid: e402fc79f08cc66449625a2fec723e89, type: 3}
   anim: {fileID: 148887102968161379}
   _visualEffect: {fileID: 0}
+  moveController: {fileID: 0}
   _maxRange: 0
   fireType: 2
   _maxAmmo: 0
@@ -30481,7 +30556,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7020662883364470439}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -30513,6 +30588,36 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &3613725229265030356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7020662883364470439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: cadbf800af7c57745b95e4653f628032
+  hasSpawned: 0
+--- !u!114 &8008681369019031591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7020662883364470439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b2fe342a4859564b8cbbb7dbafc14fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fpsCont: {fileID: 0}
 --- !u!1 &7021791629769597237
 GameObject:
   m_ObjectHideFlags: 0

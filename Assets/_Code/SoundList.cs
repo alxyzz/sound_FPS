@@ -15,6 +15,8 @@ public class SoundList : MonoBehaviour
 
 
     private static SoundList instance;
+    
+
     private void Awake()
     {
         if (null != instance)
@@ -25,9 +27,32 @@ public class SoundList : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
     }
-   
+
+
+    void Start()
+    {
+        InitializeSoundList();
+    }
+
+    private void InitializeSoundList()
+    {
+        foreach (var VARIABLE in SoundInitializerList)
+        {
+            NamedAudioClip b = new NamedAudioClip();
+            b.name = VARIABLE.name;
+            b.soundclip = VARIABLE;
+            Debug.Log("Initialized new sound with name + " + VARIABLE.name.ToString());
+        }
+    }
+
     [SerializeField] private List<NamedAudioClip> _genericAudioDatabase;
+    [SerializeField] private List<AudioClip> SoundInitializerList;
     [SerializeField] private List<AudioClip> _footsteps;
+
+
+
+
+
     public static AudioClip GetSound(string soundName)
     {
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Cinemachine;
 using Mirror;
 using Mirror.Examples.AdditiveLevels;
 using UnityEngine;
@@ -22,7 +23,7 @@ public enum WeaponType
 
 
 
-public class WeaponData : MonoBehaviour
+public class WeaponData : NetworkBehaviour
 {
     [Header("General")]
     [SerializeField] private string _weaponName;
@@ -30,6 +31,7 @@ public class WeaponData : MonoBehaviour
     [SerializeField] public Animator anim;
     [SerializeField] public VisualEffect _visualEffect;
 
+    [SerializeField] public FPSMovementController moveController;
     public string WeaponName => _weaponName;
     [SerializeField] private float _maxRange;
     public float MaxRange => _maxRange;
@@ -51,6 +53,7 @@ public class WeaponData : MonoBehaviour
     void Start()
     {
         _currentAmmo = _maxAmmo;
+
     }
 
     [Header("Fire")] [Tooltip("is the weapon an automatic firearm (be able to hold LMB to fire)")] [SerializeField]
@@ -79,10 +82,14 @@ public class WeaponData : MonoBehaviour
     //    timeSinceLastShot += Time.deltaTime;
     //}
     //private float timeSinceLastShot;
-    
+
+
+    private Transform camTransform, userTransform;
+
     public void TryShoot(Transform c, Transform user)
     {
-        
+        camTransform = c; 
+        userTransform = user;
         userloc = user;
         Debug.Log("TryShoot()");
         //if (!isLoaded )
@@ -95,51 +102,83 @@ public class WeaponData : MonoBehaviour
         if (fireType == WeaponFireType.Sniper)
         {
             anim.SetTrigger("shot"); 
-            ShootRay(BaseDamage, c, user);
+            //ShootRay(BaseDamage, c, user);
             return;
         }
 
         if (CheckAndDoShootingLogistics())
         {
             anim.SetTrigger("shot");
-            ShootRay(BaseDamage, c, user);
+            //ShootRay(BaseDamage, c, user); //we handle this during animation so it looks better
         }
         else
         {
             _currentAmmo = _maxAmmo;
             anim.SetTrigger("reload");
         }
+    }
+    /// <summary>
+    /// shoots the ray defined previously at a slight delay to synchronize it with the gun firing
+    /// </summary>
+    [Command]
+    public void ShootPreparedRay()
+    {
         
-      
-       
+        ShootRay(camTransform, userTransform);
     }
 
-
-   // [Command]
-   public void ShootRay(uint damage, Transform c, Transform userlocation)
+   [ClientRpc]
+   
+   public void ShootRay(Transform c, Transform userlocation)
    {
-      
-       //Vector3 look = c.transform.TransformDirection(Vector3.forward);
-       //Debug.DrawRay(userlocation.position, look, Color.green, 555, false);
+       DoFireEvent();
 
-       //RaycastHit shootHit;
-       //Ray shootRay = new Ray(userlocation.position, look);
-       //GameObject b = Instantiate(bulletPrefab, c.transform.position, Quaternion.identity);
-       //b.GetComponent<BulletScript>().direction = look*10;
-       // if (Physics.Raycast(shootRay, out shootHit))
-       //{
-       //    if (shootHit.transform.tag == "Player")
-       //    {
-       //        Debug.Log("Just hit player. Will damage for " + BaseDamage +" now.");
-       //        var ENEMY = shootHit.transform.GetComponent<PlayerController>();
+        //switch (fireType)
+        //{
+        //     case WeaponFireType.Sniper:
+        //         moveController.
 
-       //        ENEMY.CmdTakeDamage(BaseDamage);
-       //        //ENEMY.RefreshHealthUI();
-       //    }
-       //     Debug.Log(shootHit.transform.gameObject.name);
-      // }
-      
+        //         break;
+        //     case WeaponFireType.SMG:
+
+
+        //         break;
+        //     case WeaponFireType.Pistol:
+
+
+        //         break;
+        // }
+        //CinemachineCore.CameraUpdatedEvent += ShootAfterCinemachineLateUpdate();
+
+        //Vector3 look = c.transform.TransformDirection(Vector3.forward);
+        //Debug.DrawRay(userlocation.position, look, Color.green, 555, false);
+
+        //RaycastHit shootHit;
+        //Ray shootRay = new Ray(userlocation.position, look);
+        //GameObject b = Instantiate(bulletPrefab, c.transform.position, Quaternion.identity);
+        //b.GetComponent<BulletScript>().direction = look*10;
+        // if (Physics.Raycast(shootRay, out shootHit))
+        //{
+        //    if (shootHit.transform.tag == "Player")
+        //    {
+        //        Debug.Log("Just hit player. Will damage for " + BaseDamage +" now.");
+        //        var ENEMY = shootHit.transform.GetComponent<PlayerController>();
+
+        //        ENEMY.CmdTakeDamage(BaseDamage);
+        //        //ENEMY.RefreshHealthUI();
+        //    }
+        //     Debug.Log(shootHit.transform.gameObject.name);
+        // }
+
     }
+
+
+
+   public void ShootAfterCinemachineLateUpdate()
+   {
+
+   }
+
 
 
    public bool CheckAndDoShootingLogistics()
