@@ -14,7 +14,21 @@ public class SoundList : MonoBehaviour
 {
 
 
-    private static SoundList instance;
+    public AudioClip pistolFire;
+    public AudioClip smgFire;
+    public AudioClip sniperFire;
+
+    public AudioClip pistolReload;
+    public AudioClip smgReload;
+    public AudioClip sniperReload;
+
+    public AudioClip pistolSwitch;
+    public AudioClip smgSwitch;
+    public AudioClip sniperSwitch;
+
+
+
+    public static SoundList instance;
     
 
     private void Awake()
@@ -29,21 +43,21 @@ public class SoundList : MonoBehaviour
     }
 
 
-    void Start()
-    {
-        InitializeSoundList();
-    }
+    //void Start()
+    //{
+    //    InitializeSoundList();
+    //}
 
-    private void InitializeSoundList()
-    {
-        foreach (var VARIABLE in SoundInitializerList)
-        {
-            NamedAudioClip b = new NamedAudioClip();
-            b.name = VARIABLE.name;
-            b.soundclip = VARIABLE;
-            Debug.Log("Initialized new sound with name + " + VARIABLE.name.ToString());
-        }
-    }
+    //private void InitializeSoundList()
+    //{
+    //    foreach (var VARIABLE in SoundInitializerList)
+    //    {
+    //        NamedAudioClip b = new NamedAudioClip();
+    //        b.name = VARIABLE.name;
+    //        b.soundclip = VARIABLE;
+    //        Debug.Log("Initialized new sound with name + " + VARIABLE.name.ToString());
+    //    }
+    //}
 
     [SerializeField] private List<NamedAudioClip> _genericAudioDatabase;
     [SerializeField] private List<AudioClip> SoundInitializerList;
@@ -53,10 +67,10 @@ public class SoundList : MonoBehaviour
 
 
 
-    public static AudioClip GetSound(string soundName)
+    public AudioClip GetSound(string soundName)
     {
 
-        return instance._genericAudioDatabase.Where(i => i.name == soundName).FirstOrDefault().soundclip;
+        return _genericAudioDatabase.Where(i => i.name == soundName).FirstOrDefault().soundclip;
     }
     public static AudioClip GetRandomFootstep()
     {

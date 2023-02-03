@@ -3148,7 +3148,7 @@ PrefabInstance:
     - target: {fileID: 642390962141766523, guid: b1db6955b8d90f048be9871ec736255c, type: 3}
       propertyPath: SoundInitializerList.Array.data[0]
       value: 
-      objectReference: {fileID: 8300000, guid: 7225510f42198c349bf409332cc35a1c, type: 3}
+      objectReference: {fileID: 8300000, guid: 8ce307670543df149a7355544aa48981, type: 3}
     - target: {fileID: 642390962141766523, guid: b1db6955b8d90f048be9871ec736255c, type: 3}
       propertyPath: SoundInitializerList.Array.data[1]
       value: 
@@ -3364,7 +3364,7 @@ MonoBehaviour:
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 1235876142578436033, guid: cbf3cd5a6b7ce9942acfb94f9e1a8555, type: 3}
   autoCreatePlayer: 1
-  playerSpawnMethod: 0
+  playerSpawnMethod: 1
   spawnPrefabs:
   - {fileID: 2467476685779324940, guid: d46c69786cd480d46a38ac20096b31df, type: 3}
   gamePlayerPrefab: {fileID: 2467476685779324943, guid: d46c69786cd480d46a38ac20096b31df, type: 3}
