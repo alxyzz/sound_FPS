@@ -238,7 +238,7 @@ public class PlayerController : NetworkBehaviour
     public override void OnStartAuthority()
     {
         CmdSetPlayerName(SteamFriends.GetPersonaName().ToString());
-        gameObject.name = "LocalGamePlayer";
+        gameObject.name =  "LocalGamePlayer";
         LobbyController.Instance.FindLocalPlayer();
         LobbyController.Instance.UpdateLobbyName();
     }
