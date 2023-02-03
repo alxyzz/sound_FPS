@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
+using Cinemachine;
 using Mirror;
 using Mirror.Examples.AdditiveLevels;
 using UnityEngine;
+using UnityEngine.VFX;
 using Random = UnityEngine.Random;
 
 public enum WeaponType
@@ -21,47 +23,47 @@ public enum WeaponType
 
 
 
-public class WeaponData : MonoBehaviour
+public class WeaponData : NetworkBehaviour
 {
     [Header("General")]
     [SerializeField] private string _weaponName;
-    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] public GameObject bulletPrefab;
     [SerializeField] public Animator anim;
+    [SerializeField] public VisualEffect _visualEffect;
+
+    [SerializeField] public ActionManager moveController;
     public string WeaponName => _weaponName;
     [SerializeField] private float _maxRange;
     public float MaxRange => _maxRange;
     private Camera userCam;
     private Transform userloc;
-    enum WeaponFireType
+    public enum WeaponFireType
     {
         Pistol,
         SMG,
         Sniper
     }
 
+
+    public void DoFireEvent()
+    {
+        _visualEffect.Play();
+    }
+
     void Start()
     {
         _currentAmmo = _maxAmmo;
+
     }
 
     [Header("Fire")] [Tooltip("is the weapon an automatic firearm (be able to hold LMB to fire)")] [SerializeField]
     private WeaponFireType fireType;
 
-    public int ShootingType
+    public WeaponFireType ShootingType
     {
         get
         {
-            switch (fireType)
-            {
-                case WeaponFireType.Pistol:
-                    return 1;
-                case WeaponFireType.SMG:
-                    return 2;
-                case WeaponFireType.Sniper:
-                    return 3;
-                default:
-                    return 3;
-            }
+            return fireType;
         }
     }
 
@@ -70,67 +72,37 @@ public class WeaponData : MonoBehaviour
     //    timeSinceLastShot += Time.deltaTime;
     //}
     //private float timeSinceLastShot;
-    
+
+
+    private Transform camTransform, userTransform;
+
     public void TryShoot(Transform c, Transform user)
     {
-        
-        userloc = user;
-        Debug.Log("TryShoot()");
-        //if (!isLoaded )
+
+        Debug.Log("tried to shoot. ammo is now ()");
+        fireCooldown = true;
+        //if (fireType == WeaponFireType.Sniper)
         //{
-        //    //Reload();
+        //    anim.SetTrigger("shot"); 
+        //    //ShootRay(BaseDamage, c, user);
         //    return;
         //}
-
-        fireCooldown = true;
-        if (fireType == WeaponFireType.Sniper)
-        {
-            anim.SetTrigger("shot"); 
-            ShootRay(BaseDamage, c, user);
-            return;
-        }
 
         if (CheckAndDoShootingLogistics())
         {
             anim.SetTrigger("shot");
-            ShootRay(BaseDamage, c, user);
+            //ShootRay(BaseDamage, c, user); //we handle this during animation so it looks better
         }
         else
         {
-            _currentAmmo = _maxAmmo;
-            anim.SetTrigger("reload");
+            Reload();
         }
-        
-      
-       
     }
+    /// <summary>
+    /// shoots the ray defined previously at a slight delay to synchronize it with the gun firing
+    /// </summary>
+    
 
-
-   // [Command]
-   public void ShootRay(uint damage, Transform c, Transform userlocation)
-   {
-      
-       //Vector3 look = c.transform.TransformDirection(Vector3.forward);
-       //Debug.DrawRay(userlocation.position, look, Color.green, 555, false);
-
-       //RaycastHit shootHit;
-       //Ray shootRay = new Ray(userlocation.position, look);
-       //GameObject b = Instantiate(bulletPrefab, c.transform.position, Quaternion.identity);
-       //b.GetComponent<BulletScript>().direction = look*10;
-       // if (Physics.Raycast(shootRay, out shootHit))
-       //{
-       //    if (shootHit.transform.tag == "Player")
-       //    {
-       //        Debug.Log("Just hit player. Will damage for " + BaseDamage +" now.");
-       //        var ENEMY = shootHit.transform.GetComponent<PlayerController>();
-
-       //        ENEMY.CmdTakeDamage(BaseDamage);
-       //        //ENEMY.RefreshHealthUI();
-       //    }
-       //     Debug.Log(shootHit.transform.gameObject.name);
-      // }
-      
-    }
 
 
    public bool CheckAndDoShootingLogistics()
@@ -246,15 +218,17 @@ public class WeaponData : MonoBehaviour
 
         GetComponent<Animator>().SetTrigger("reload");
         StartCoroutine(ReloadDelay());
+            
     }
 
     private bool reloading;
     IEnumerator ReloadDelay()
     {
         reloading = true;
-        yield return new WaitForSecondsRealtime(FireDelay);
+        yield return new WaitForSecondsRealtime(0);
         _currentAmmo = _maxAmmo;
-        reloading = false;
+        reloading = false; 
+        moveController.HUDComponent.ChangeAmmoCounter(CurrentAmmo);
     }
 
     [Tooltip("delay for continuous shooting")]

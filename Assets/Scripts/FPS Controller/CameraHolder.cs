@@ -7,7 +7,6 @@ public class CameraHolder : MonoBehaviour
     public FPSCameraController cameraController;
     public Camera fpsCamera;
 
-
     public WeaponData obj_Pistol, obj_SMG, obj_Sniper;
 
 

@@ -181,7 +181,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -324,6 +324,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FPS Root
       objectReference: {fileID: 0}
+    - target: {fileID: 2844995506420935383, guid: cadbf800af7c57745b95e4653f628032, type: 3}
+      propertyPath: m_AssetId
+      value: be3b01d6f8b3eeb4186387a42c283054
+      objectReference: {fileID: 0}
     - target: {fileID: 3201048490827763979, guid: cadbf800af7c57745b95e4653f628032, type: 3}
       propertyPath: _maxAmmo
       value: 6
@@ -343,6 +347,10 @@ PrefabInstance:
     - target: {fileID: 3201048490827763979, guid: cadbf800af7c57745b95e4653f628032, type: 3}
       propertyPath: _crosshairSpread
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3613725229265030356, guid: cadbf800af7c57745b95e4653f628032, type: 3}
+      propertyPath: m_AssetId
+      value: be3b01d6f8b3eeb4186387a42c283054
       objectReference: {fileID: 0}
     - target: {fileID: 4183708846538453250, guid: cadbf800af7c57745b95e4653f628032, type: 3}
       propertyPath: _maxAmmo
@@ -407,6 +415,10 @@ PrefabInstance:
     - target: {fileID: 4633655826258773988, guid: cadbf800af7c57745b95e4653f628032, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8312669784482929353, guid: cadbf800af7c57745b95e4653f628032, type: 3}
+      propertyPath: m_AssetId
+      value: be3b01d6f8b3eeb4186387a42c283054
       objectReference: {fileID: 0}
     - target: {fileID: 8610812396634810176, guid: cadbf800af7c57745b95e4653f628032, type: 3}
       propertyPath: _maxAmmo

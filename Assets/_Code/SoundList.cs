@@ -12,9 +12,25 @@ public struct NamedAudioClip
 
 public class SoundList : MonoBehaviour
 {
+    public AudioClip beatsound;
+
+    public AudioClip pistolFire;
+    public AudioClip smgFire;
+    public AudioClip sniperFire;
+
+    public AudioClip pistolReload;
+    public AudioClip smgReload;
+    public AudioClip sniperReload;
+
+    public AudioClip pistolSwitch;
+    public AudioClip smgSwitch;
+    public AudioClip sniperSwitch;
 
 
-    private static SoundList instance;
+
+    public static SoundList instance;
+    
+
     private void Awake()
     {
         if (null != instance)
@@ -25,13 +41,36 @@ public class SoundList : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
     }
-   
+
+
+    //void Start()
+    //{
+    //    InitializeSoundList();
+    //}
+
+    //private void InitializeSoundList()
+    //{
+    //    foreach (var VARIABLE in SoundInitializerList)
+    //    {
+    //        NamedAudioClip b = new NamedAudioClip();
+    //        b.name = VARIABLE.name;
+    //        b.soundclip = VARIABLE;
+    //        Debug.Log("Initialized new sound with name + " + VARIABLE.name.ToString());
+    //    }
+    //}
+
     [SerializeField] private List<NamedAudioClip> _genericAudioDatabase;
+    [SerializeField] private List<AudioClip> SoundInitializerList;
     [SerializeField] private List<AudioClip> _footsteps;
-    public static AudioClip GetSound(string soundName)
+
+
+
+
+
+    public AudioClip GetSound(string soundName)
     {
 
-        return instance._genericAudioDatabase.Where(i => i.name == soundName).FirstOrDefault().soundclip;
+        return _genericAudioDatabase.Where(i => i.name == soundName).FirstOrDefault().soundclip;
     }
     public static AudioClip GetRandomFootstep()
     {
