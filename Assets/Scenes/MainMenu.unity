@@ -3154,6 +3154,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 46d548a41a72b7142ab2330eafa031ed, type: 3}
     - target: {fileID: 642390962141766523, guid: b1db6955b8d90f048be9871ec736255c, type: 3}
+      propertyPath: pistolReload
+      value: 
+      objectReference: {fileID: 8300000, guid: 2cb7e40ea77e1424eb87c6488f99bf98, type: 3}
+    - target: {fileID: 642390962141766523, guid: b1db6955b8d90f048be9871ec736255c, type: 3}
       propertyPath: SoundInitializerList.Array.size
       value: 5
       objectReference: {fileID: 0}

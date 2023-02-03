@@ -589,7 +589,7 @@ MonoBehaviour:
   anim_SMG: {fileID: 0}
   anim_Sniper: {fileID: 0}
   currWepAnim: {fileID: 0}
-  moveSpeed: 7.5
+  moveSpeed: 5
   groundDrag: 1
   jumpForce: 8
   jumpCooldown: 2
@@ -627,6 +627,7 @@ MonoBehaviour:
   characterVisorObject: {fileID: 0}
   localSoundPlayer: {fileID: 5630574434784582149}
   period: 0
+  maxPeriod: 0
   testobj: {fileID: 7261035104801107795, guid: d1dfcaf94a83bd04dbb6ae70dd3e9202, type: 3}
 --- !u!1 &5891553444643522671
 GameObject:

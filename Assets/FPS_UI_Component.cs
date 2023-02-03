@@ -11,7 +11,7 @@ public class FPS_UI_Component : MonoBehaviour
     public TextMeshProUGUI health;
     public TextMeshProUGUI kills;
     public GameObject beatSymbol;
-    [HideInInspector]public PlayerControls fpscontrol;
+    [HideInInspector]public ActionManager fpscontrol;
     public Image beatAmmoDisplay;
     public List<Sprite> ammoDisplayList;
     private bool started;
@@ -37,6 +37,8 @@ public class FPS_UI_Component : MonoBehaviour
 
     private void SizeUpBeat(bool b)
     {
+       
+
         if (b)
         {
             beatSymbol.transform.localScale = new Vector3(1.2f,1.2f,1.2f);
@@ -49,6 +51,7 @@ public class FPS_UI_Component : MonoBehaviour
 
     public void ChangeAmmoCounter(int ammo)
     {
+        ammo = Mathf.Clamp(ammo, 0, 6);
         beatAmmoDisplay.sprite = ammoDisplayList[ammo];
     }
 

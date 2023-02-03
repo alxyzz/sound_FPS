@@ -4,7 +4,7 @@ using UnityEngine.VFX;
 public class FpAnimEventHandler : MonoBehaviour
 {
     private Animator _animator;
-    [SerializeField] public PlayerControls _fpsCont;
+    [SerializeField] public ActionManager _fpsCont;
     private VisualEffect v;
 
     private WeaponData selfWepData;
@@ -29,7 +29,7 @@ public class FpAnimEventHandler : MonoBehaviour
         _fpsCont = selfWepData.moveController;
 
         _fpsCont.PlayGunFire(SoundList.instance.pistolFire);
-        selfWepData.moveController.ShootPreparedRay();
+        //selfWepData.moveController.ShootPreparedRay();
 
     }
     public void SmgShootEvent()
@@ -37,21 +37,21 @@ public class FpAnimEventHandler : MonoBehaviour
         _fpsCont = selfWepData.moveController;
 
         _fpsCont.PlayGunFire(SoundList.instance.smgFire);
-        selfWepData.moveController.ShootPreparedRay();
+        //selfWepData.moveController.ShootPreparedRay();
 
     }
     public void SniperShootEvent()
     {
         _fpsCont = selfWepData.moveController;
 
-        _fpsCont.PlayGunFire(SoundList.instance.sniperFire);   selfWepData.moveController.ShootPreparedRay();
+        _fpsCont.PlayGunFire(SoundList.instance.sniperFire);   //selfWepData.moveController.ShootPreparedRay();
 
     }
 
 
     public void RevReload()
     {
-        //_fpsCont.PlayGunFire(SoundList.instance.GetSound("Pistol"));
+        _fpsCont.PlayGunFire(SoundList.instance.pistolReload);
         
 
     }

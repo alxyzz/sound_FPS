@@ -4931,10 +4931,10 @@ MonoBehaviour:
   anim: {fileID: 3929809915610274594}
   _visualEffect: {fileID: 545155663804826514}
   moveController: {fileID: 0}
-  _maxRange: 0
+  _maxRange: 50
   fireType: 0
-  _maxAmmo: 0
-  _fireDelay: 1.5
+  _maxAmmo: 6
+  _fireDelay: 0.25
   _crosshairSpread: 0
   _fireSpread: 0.6
   _baseDamage: 0
@@ -13023,10 +13023,10 @@ MonoBehaviour:
   anim: {fileID: 6699617666372371896}
   _visualEffect: {fileID: 453141843490901203}
   moveController: {fileID: 0}
-  _maxRange: 0
+  _maxRange: 50
   fireType: 1
-  _maxAmmo: 0
-  _fireDelay: 0.6
+  _maxAmmo: 6
+  _fireDelay: 0.2
   _crosshairSpread: 0
   _fireSpread: 0.6
   _baseDamage: 0
@@ -30479,10 +30479,10 @@ MonoBehaviour:
   anim: {fileID: 148887102968161379}
   _visualEffect: {fileID: 8664062907048801807}
   moveController: {fileID: 0}
-  _maxRange: 0
+  _maxRange: 50
   fireType: 2
-  _maxAmmo: 0
-  _fireDelay: 4
+  _maxAmmo: 1
+  _fireDelay: 6
   _crosshairSpread: 0
   _fireSpread: 0
   _baseDamage: 60

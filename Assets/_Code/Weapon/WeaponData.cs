@@ -31,7 +31,7 @@ public class WeaponData : NetworkBehaviour
     [SerializeField] public Animator anim;
     [SerializeField] public VisualEffect _visualEffect;
 
-    [SerializeField] public PlayerControls moveController;
+    [SerializeField] public ActionManager moveController;
     public string WeaponName => _weaponName;
     [SerializeField] private float _maxRange;
     public float MaxRange => _maxRange;
@@ -78,23 +78,15 @@ public class WeaponData : NetworkBehaviour
 
     public void TryShoot(Transform c, Transform user)
     {
-        camTransform = c; 
-        userTransform = user;
-        userloc = user;
-        Debug.Log("TryShoot()");
-        //if (!isLoaded )
+
+        Debug.Log("tried to shoot. ammo is now ()");
+        fireCooldown = true;
+        //if (fireType == WeaponFireType.Sniper)
         //{
-        //    //Reload();
+        //    anim.SetTrigger("shot"); 
+        //    //ShootRay(BaseDamage, c, user);
         //    return;
         //}
-
-        fireCooldown = true;
-        if (fireType == WeaponFireType.Sniper)
-        {
-            anim.SetTrigger("shot"); 
-            //ShootRay(BaseDamage, c, user);
-            return;
-        }
 
         if (CheckAndDoShootingLogistics())
         {
@@ -103,8 +95,7 @@ public class WeaponData : NetworkBehaviour
         }
         else
         {
-            _currentAmmo = _maxAmmo;
-            anim.SetTrigger("reload");
+            Reload();
         }
     }
     /// <summary>
@@ -227,16 +218,17 @@ public class WeaponData : NetworkBehaviour
 
         GetComponent<Animator>().SetTrigger("reload");
         StartCoroutine(ReloadDelay());
-            moveController.HUDComponent.ChangeAmmoCounter(6);
+            
     }
 
     private bool reloading;
     IEnumerator ReloadDelay()
     {
         reloading = true;
-        yield return new WaitForSecondsRealtime(FireDelay);
+        yield return new WaitForSecondsRealtime(0);
         _currentAmmo = _maxAmmo;
-        reloading = false;
+        reloading = false; 
+        moveController.HUDComponent.ChangeAmmoCounter(CurrentAmmo);
     }
 
     [Tooltip("delay for continuous shooting")]
