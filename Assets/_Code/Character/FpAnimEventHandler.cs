@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Mirror;
-using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.VFX;
 

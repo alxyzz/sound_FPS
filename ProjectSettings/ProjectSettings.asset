@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: NukeGH05T
-  productName: FPS Steam (Mirror) MP Demo
+  companyName: DefaultCompany
+  productName: Wav.Runner
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 1}
@@ -157,7 +157,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Standalone: com.NukeGH05T.FPS-Steam--Mirror--MP-Demo
+    Standalone: com.DefaultCompany.Wav.Runner
   buildNumber:
     Standalone: 0
     iPhone: 0
@@ -275,7 +275,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 891b27c991ca1ae4eb5072285d84d774, type: 3}
+      m_Icon: {fileID: 2800000, guid: 38a246b9bfe68ef44bf4d0f072aa9290, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
